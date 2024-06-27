@@ -11,7 +11,7 @@
 
 <body class="bg-secondary-subtle">
 
-  <!-- Login form -->
+  <!-- Change password & username form -->
 
   <form action="/admin/update" method="POST" class="w-50 mx-auto my-5">
     @csrf
