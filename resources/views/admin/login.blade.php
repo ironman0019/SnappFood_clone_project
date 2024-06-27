@@ -19,11 +19,7 @@
     <h1>Admin Login</h1>
     @csrf
     <!-- flash message -->
-    @if(session()->has('message'))
-    <div x-data="{show: true}" x-init="setTimeout(() => show= false,3000)" x-show="show" class="alert alert-success" role="alert">
-      {{session('message')}}
-    </div>
-    @endif
+     <x-flash-message/>
     <div class="mb-3 mt-3">
         <label for="" class="form-label">Username</label>
         <input type="text" class="form-control" id="" name="username">
