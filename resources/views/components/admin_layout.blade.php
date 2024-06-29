@@ -34,7 +34,7 @@
                 <a class="nav-link" href="/admin/food_tags">Foods tags</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="./comment_delete_req.html">Commets Delete req</a>
+                <a class="nav-link" href="/admin/comments_delete">Commets Delete req</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/admin/change_password">Change password</a>
