@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Comment;
 use App\Models\FoodTag;
 use App\Models\ResturentTag;
 use Illuminate\Http\Request;
@@ -18,33 +19,11 @@ class AdminController extends Controller
         return view('admin.dashbord');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
      */
+    // Show form for edit admin username or password
     public function edit()
     {
         $admin = Admin::find(1);
@@ -54,6 +33,7 @@ class AdminController extends Controller
     /**
      * Update the specified resource in storage.
      */
+    // Edit admin username or password
     public function update(Request $request)
     {
         $formFields = $request->validate([
@@ -69,13 +49,6 @@ class AdminController extends Controller
         return redirect('/admin')->with('message', 'username & password updated!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 
     // Show admin login form
     public function login()
@@ -91,10 +64,13 @@ class AdminController extends Controller
             'password' => 'required'
         ]);
 
+       
         if (Auth::guard('admin')->attempt($formFields)) {
-            $request->session()->regenerate();
 
-            return redirect('/admin')->with('message', 'You are now logged in!');
+            if (auth()->guard('admin')->check()) {
+                return redirect('/admin')->with('message', 'You are now logged in!');
+            }
+            
         }
 
         return back()->withErrors(['username' => 'invalid credentials'])->onlyInput('username');
@@ -112,7 +88,7 @@ class AdminController extends Controller
     }
 
     // Show resturents tag page view
-    public function resturentsTagsIndex()
+    public function resturentsTagsIndex(Request $request)
     {
         return view('admin.resturents_tags', ['tags' => ResturentTag::all()]);
     }
@@ -132,7 +108,10 @@ class AdminController extends Controller
     // Delete resturents tag
     public function deleteResTag(ResturentTag $resturentTag)
     {
-        // make sure user is auth!   
+        // Make sure user is auth!
+        if (!auth()->guard('admin')->check()) {
+            abort(403, 'Unauth action!');
+        }  
 
         $resturentTag->delete();
         return redirect('/admin/resturents_tags')->with('delMessage', 'tag deleted!');
@@ -160,10 +139,47 @@ class AdminController extends Controller
     // Delete food tag
     public function deleteFoodTag(FoodTag $foodTag)
     {
-        // make sure user is auth!   
+        // Make sure user is auth!
+        if (!auth()->guard('admin')->check()) {
+            abort(403, 'Unauth action!');
+        }   
 
         $foodTag->delete();
         return redirect('/admin/food_tags')->with('delMessage', 'tag deleted!');
+    }
+
+    // Show comments delete page
+    public function commentsDelIndex()
+    {
+        return view('admin.commentsDel', ['comments' => Comment::all()->where('delete_req',1)]);
+    }
+
+    // Keep comment that seller requested to delete (make delete_req column false)
+    public function keepComment(Comment $comment)
+    {
+        // Make sure user is auth!
+        if (!auth()->guard('admin')->check()) {
+            abort(403, 'Unauth action!');
+        }
+
+        $comment->delete_req = false;
+        $comment->save();
+
+        return redirect('/admin/comments_delete')->with('message', 'Comment is keeping in database!');
+    }
+
+    // Delete comment
+    public function deleteComment(Comment $comment)
+    {
+
+        // Make sure user is auth!
+        if (!auth()->guard('admin')->check()) {
+            abort(403, 'Unauth action!');
+        }
+
+
+        $comment->delete();
+        return redirect('/admin/comments_delete')->with('delMessage', 'Comment deleted!');
     }
 
 }
