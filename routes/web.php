@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SellerController;
+use App\Http\Controllers\SellerHomeController;
+use App\Models\Seller;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -52,4 +55,13 @@ Route::post('/admin/comment_keep/{comment}', [AdminController::class, 'keepComme
 
 // Delete comment as seller requested
 Route::delete('/admin/comment_deleteing/{comment}', [AdminController::class, 'deleteComment'])->middleware('adminAuth');
+
+
+// Sellers routes
+Route::prefix('seller')->group(function() {
+    Route::get('/register', [SellerController::class, 'create']);  // Show seller register form
+    Route::post('/store', [SellerController::class, 'store']);  // Create seller 
+    Route::get('/dashbord', [SellerHomeController::class, 'index'])->middleware('completeResturentInfo');  // Show seller dashbord page
+    Route::get('/complete_res_info', [SellerController::class, 'createResturentInfo']); // Show complete resturent info form
+});
 
