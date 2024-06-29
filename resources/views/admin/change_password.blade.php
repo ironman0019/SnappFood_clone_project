@@ -38,6 +38,7 @@
         <div class="form-text text-danger">{{$message}}</div>
         @enderror
     </div>
+    <a href="/admin" class="btn btn-secondary">Back</a>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 
