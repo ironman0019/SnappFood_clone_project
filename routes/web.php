@@ -63,5 +63,13 @@ Route::prefix('seller')->group(function() {
     Route::post('/store', [SellerController::class, 'store']);  // Create seller 
     Route::get('/dashbord', [SellerHomeController::class, 'index'])->middleware('completeResturentInfo');  // Show seller dashbord page
     Route::get('/complete_res_info', [SellerController::class, 'createResturentInfo']); // Show complete resturent info form
+    Route::put('/complete_res_info', [SellerController::class, 'storeResturentInfo']); // Store resturent info
+});
+
+// Sellers dashbord
+Route::prefix('seller/dashbord')->group(function() {
+    Route::get('/resturent_setting', [SellerHomeController::class, 'resturentSetting']); // Show resturent setting page
+    Route::put('/resturent_setting', [SellerHomeController::class, 'updateResturentSetting']); // Update resturent setting
+    Route::put('/resturent_status', [SellerHomeController::class, 'updateResturentStatus']); // Update resturent status
 });
 
