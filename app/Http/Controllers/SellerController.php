@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Resturent;
+use App\Models\ResturentTag;
 use App\Models\Seller;
 use App\Rules\mobileNo;
 use Illuminate\Http\Request;
@@ -97,6 +98,28 @@ class SellerController extends Controller
     // Show resturent complete info form
     public function createResturentInfo()
     {
-        return view('sellers.resturents_info');
+        return view('sellers.resturents_info', ['tags' => ResturentTag::all()]);
+    }
+
+    // update required resturent info in database
+    public function storeResturentInfo(Request $request)
+    {
+        $formFields = $request->validate([
+            'name' => ['required', 'min:3'],
+            'tag' => 'required|not_in:0',
+            'phone' => 'required',
+            'address' => 'required',
+            'bank' => 'required|numeric|min:24',
+        ]);
+
+        $formFields['bank'] = "IR-".$formFields['bank'];
+
+        // Create resturent info
+        $seller_id = auth()->guard('seller')->id();
+        $resturent = Resturent::where('seller_id', $seller_id);
+        $resturent->update($formFields);
+
+        // redirect to dashbord page
+        return redirect('/seller/dashbord')->with('message', 'Account Created and Login successfuly!');
     }
 }
