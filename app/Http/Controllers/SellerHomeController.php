@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Food;
+use App\Models\FoodTag;
 use App\Models\Resturent;
 use App\Models\ResturentTag;
+use App\Models\Seller;
 use Illuminate\Http\Request;
 
 class SellerHomeController extends Controller
@@ -116,5 +119,111 @@ class SellerHomeController extends Controller
 
         // redirect
         return back()->with('message', 'Resturent status updated!');
+    }
+
+    // Show foods page
+    public function foods()
+    {
+        // Resturent id
+        $resturentId = Seller::find(auth()->guard('seller')->id())->resturent->id;
+
+        return view('sellers.foods', ['food_tags' => FoodTag::all(), 'foods' => Resturent::find($resturentId)->foods]);
+    }
+
+    // Create food & store in database
+    public function foodsStore(Request $request)
+    {
+        $formFields = $request->validate([
+            'name' => 'required',
+            'price' => 'required|numeric',
+            'tags' => 'required',
+            'material' => ''
+        ]);
+
+
+        // Seperate tags array by comma
+        $formFields['tags'] = implode(",", $formFields['tags']);
+
+
+        // Find seller resturent id
+        $resturentId = Seller::find(auth()->guard('seller')->id())->resturent->id;
+        $formFields['resturent_id'] = $resturentId;
+
+        // Create food
+        Food::create($formFields);
+
+        // Redirect user(seller)
+        return back()->with('message', 'Food created!');
+    }
+    
+    // Add or remove food from food party
+    public function foodsFoodParty(Request $request, Food $food)
+    {
+        $formFields = $request->validate([
+            'food_party' => 'required|not_in:11'
+        ]);
+
+        // Update value of food_party
+        $food->update($formFields);
+
+        // Create proper session message
+        $message = "";
+        if($food->food_party == false) 
+        {
+            $message = "Item removed from food party!";
+        } else 
+        {
+            $message = "Item added in food party!";
+        }
+
+        // Redirect user
+        return back()->with('message', $message);
+    }
+
+    // Show edit food form
+    public function foodsEdit(Food $food)
+    {
+        return view('sellers.foods_edit',['food' => $food, 'food_tags' => FoodTag::all()]);
+    }
+
+    // Update foods
+    public function foodsUpdate(Request $request, Food $food)
+    {
+        $formFields = $request->validate([
+            'name' => 'required',
+            'material' => '',
+            'price' => 'required|numeric',
+            'discount' => 'nullable|integer|between:1,99',
+            'tags' => 'required',
+        ]);
+
+        // Seperate tags array by comma
+        $formFields['tags'] = implode(",", $formFields['tags']);
+
+        // Update food
+        $food->update($formFields);
+
+        // redirect user
+        return redirect('/seller/dashbord/foods')->with('message', 'food updated successfully!');
+    }
+
+    // Remove food discount
+    public function foodsRemoveDiscount(Request $request, Food $food)
+    {
+        // get null value from input form
+        $formFields = $request->all('discount');
+
+        // Update value of discount column in to null
+        $food->update($formFields);
+
+        // redirect user
+        return redirect('/seller/dashbord/foods')->with('delMessage', 'Discount removed!');
+    }
+
+    // Delete food
+    public function foodsDestroy(Food $food)
+    {
+        $food->delete();
+        return redirect('/seller/dashbord/foods')->with('delMessage', 'Food Deleted!');
     }
 }
