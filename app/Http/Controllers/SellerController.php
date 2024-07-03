@@ -8,6 +8,7 @@ use App\Models\Seller;
 use App\Rules\mobileNo;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class SellerController extends Controller
 {
@@ -121,5 +122,30 @@ class SellerController extends Controller
 
         // redirect to dashbord page
         return redirect('/seller/dashbord')->with('message', 'Account Created and Login successfuly!');
+    }
+
+    // Show seller login page
+    public function login()
+    {
+        return view('sellers.login');
+    }
+
+    // Authtenticate seller and login
+    public function auth(Request $request)
+    {
+        $formFields = $request->validate([
+            'email' => 'required',
+            'password' => 'required'
+        ]);
+
+       
+        if (Auth::guard('seller')->attempt($formFields)) {
+
+            if (auth()->guard('seller')->check()) {
+                return redirect('/seller/dashbord')->with('message', 'You are now logged in!');
+            }
+        }
+
+        return back()->withErrors(['email' => 'invalid credentials'])->onlyInput('email');
     }
 }
