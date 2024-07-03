@@ -1,11 +1,11 @@
 <x-admin_layout>
 
-    <!-- flash message -->
+    <!-- flash message
     @if(session()->has('delMessage'))
     <div x-data="{show: true}" x-init="setTimeout(() => show= false,3000)" x-show="show" class="alert alert-danger" role="alert">
         {{session('delMessage')}}
     </div>
-    @endif
+    @endif -->
 
     <!-- Add Food tags form -->
     <section class="container m-5 bg-secondary-subtle py-5 shadow-lg">
