@@ -64,6 +64,8 @@ Route::prefix('seller')->group(function() {
     Route::get('/dashbord', [SellerHomeController::class, 'index'])->middleware('completeResturentInfo');  // Show seller dashbord page
     Route::get('/complete_res_info', [SellerController::class, 'createResturentInfo']); // Show complete resturent info form
     Route::put('/complete_res_info', [SellerController::class, 'storeResturentInfo']); // Store resturent info
+    Route::get('/login', [SellerController::class, 'login']); // Show seller login page
+    Route::post('/auth', [SellerController::class, 'auth']); // Login seller
 });
 
 // Sellers dashbord
@@ -71,5 +73,12 @@ Route::prefix('seller/dashbord')->group(function() {
     Route::get('/resturent_setting', [SellerHomeController::class, 'resturentSetting']); // Show resturent setting page
     Route::put('/resturent_setting', [SellerHomeController::class, 'updateResturentSetting']); // Update resturent setting
     Route::put('/resturent_status', [SellerHomeController::class, 'updateResturentStatus']); // Update resturent status
+    Route::get('/foods', [SellerHomeController::class, 'foods']); // Show foods page
+    Route::post('/foods', [SellerHomeController::class, 'foodsStore']); // Create Food
+    Route::put('/foods/food_party/{food}', [SellerHomeController::class, 'foodsFoodParty']); // Add or remove food from food party
+    Route::get('/foods/edit/{food}', [SellerHomeController::class, 'foodsEdit']); // Show edit food form
+    Route::put('/foods/update/{food}', [SellerHomeController::class, 'foodsUpdate']); // Update food
+    Route::put('/foods/discount/{food}', [SellerHomeController::class, 'foodsRemoveDiscount']); // Remove food's discount
+    Route::delete('/foods/delete/{food}', [SellerHomeController::class, 'foodsDestroy']); // Delete food from database
 });
 
