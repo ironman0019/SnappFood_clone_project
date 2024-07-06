@@ -17,4 +17,14 @@ class Food extends Model
     {
         return $this->belongsTo(Resturent::class, 'resturent_id');
     }
+
+    // Scope filter for search in seller foods page based on foods name & tags
+    public function scopeFilter($query, array $filters)
+    {
+        if($filters['search'] ?? false) {
+            $query->where('tags', 'like', '%' .request('search'). '%')
+            
+            ->orWhere('name', 'like', '%' .request('search'). '%');
+        }
+    }
 }
