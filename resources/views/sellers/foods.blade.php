@@ -6,6 +6,10 @@
             <button class="btn btn-success mb-3" type="button" data-bs-toggle="modal" data-bs-target="#createModal">
                 Create food
             </button>
+            <form class="d-flex mb-3" role="search" action="/seller/dashbord/foods">
+                <input class="form-control me-2" type="search" placeholder="Search" name="search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
         </div>
         <div class="container">
             <table class="table table-striped">
@@ -85,6 +89,9 @@
                     @endforeach
                 </tbody>
             </table>
+            <div class="tw-mt-6 tw-p-4">
+                {{$foods->links()}}
+            </div>
         </div>
     </section>
 
