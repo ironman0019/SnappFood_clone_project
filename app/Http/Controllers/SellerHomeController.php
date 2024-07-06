@@ -7,6 +7,7 @@ use App\Models\FoodTag;
 use App\Models\Resturent;
 use App\Models\ResturentTag;
 use App\Models\Seller;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class SellerHomeController extends Controller
@@ -127,7 +128,10 @@ class SellerHomeController extends Controller
         // Resturent id
         $resturentId = Seller::find(auth()->guard('seller')->id())->resturent->id;
 
-        return view('sellers.foods', ['food_tags' => FoodTag::all(), 'foods' => Resturent::find($resturentId)->foods]);
+        return view('sellers.foods', [
+            'food_tags' => FoodTag::all(),
+            'foods' => Food::latest()->where('resturent_id', $resturentId)->filter(request(['search']))->paginate(3),
+        ]);
     }
 
     // Create food & store in database
