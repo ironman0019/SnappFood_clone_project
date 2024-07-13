@@ -11,70 +11,60 @@
                         <th scope="col">Time</th>
                         <th scope="col">Food title</th>
                         <th scope="col">status</th>
-                        <th scope="col">Price</th>
+                        <th scope="col">Total_amount</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @php
+                    $i = 0;
+                    @endphp
+                    @foreach($orders as $order)
+                    @php
+                    $i++
+                    @endphp
                     <tr>
-                        <th scope="row">1</th>
-                        <td>192</td>
-                        <td>23:40:43</td>
-                        <td>Pizza</td>
+                        <th scope="row">{{$i}}</th>
+                        <td>{{$order->id}}</td>
+                        <td>{{$order->created_at}}</td>
                         <td>
-                            Checking
-                            <button class="btn btn-warning" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">edit</button>
-
+                            @php
+                            foreach($foodItems as $foodItem) {
+                            if($foodItem->order_id == $order->id) {
+                            echo $foodItem->food->name. " * " .$foodItem->quantity_ordered . " ";
+                            };
+                            };
+                            @endphp
                         </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>193</td>
-                        <td>23:40:43</td>
-                        <td>goh</td>
                         <td>
-                            Checking
-                            <button class="btn btn-warning" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">edit</button>
-
+                            <div class="container d-flex gap-3">
+                                {{$order->order_status}}
+                                <form action="/seller/dashbord/order_status/{{$order->id}}" method="POST" class="d-flex gap-2">
+                                    @csrf
+                                    @method('put')
+                                    <select class="form-select mb-3" name="order_status">
+                                        <option selected value="0">Choose</option>
+                                        <option value="preparing">Preparing</option>
+                                        <option value="send">Send</option>
+                                        <option value="resived">Resived</option>
+                                    </select>
+                                    @error('order_status')
+                                    <div class="form-text text-danger">{{$message}}</div>
+                                    @enderror
+                                    <button class="btn btn-warning align-self-start" type="submit">Edit</button>
+                                </form>
+                            </div>
                         </td>
+                        <td class="fw-bold">{{$order->total_amount}} Toman</td>
                     </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>194</td>
-                        <td>23:40:43</td>
-                        <td>burger</td>
-                        <td>
-                            Checking
-                            <button class="btn btn-warning" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">edit</button>
-
-                        </td>
-                        <td>50,000</td>
-                    </tr>
+                    @endforeach
                 </tbody>
             </table>
+            <!-- paginate links -->
+            <div class="">
+                {{$orders->links()}}
+            </div>
         </div>
     </section>
 
 
-    <!-- Edit order status Modal  -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">edit order status</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="$">
-                        <select class="form-select mb-3" aria-label="Default select example">
-                            <option selected>Checking</option>
-                            <option value="1">Preparing</option>
-                            <option value="2">send</option>
-                            <option value="3">resived</option>
-                        </select>
-                        <button class="btn btn-primary" type="submit">submit</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 </x-seller_home_layout>
