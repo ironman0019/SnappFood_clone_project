@@ -18,6 +18,12 @@ class Food extends Model
         return $this->belongsTo(Resturent::class, 'resturent_id');
     }
 
+    // Relation with order_food_item
+    public function orderFoodItem()
+    {
+        return $this->hasMany(OrderFoodItem::class, 'food_id');
+    }
+
     // Scope filter for search in seller foods page based on foods name & tags
     public function scopeFilter($query, array $filters)
     {
