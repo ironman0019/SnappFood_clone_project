@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Food;
 use App\Models\FoodTag;
+use App\Models\Order;
+use App\Models\OrderFoodItem;
+use App\Models\OrderStatus;
 use App\Models\Resturent;
 use App\Models\ResturentTag;
 use App\Models\Seller;
@@ -17,7 +20,46 @@ class SellerHomeController extends Controller
      */
     public function index()
     {
-        return view('sellers.dashbord');
+        // Resturent id
+        $resturentId = Seller::find(auth()->guard('seller')->id())->resturent->id;
+
+        // Food items for our resturent orders
+        $foodItems = OrderFoodItem::whereRelation('order', 'resturent_id', '=', $resturentId)->get();
+
+        return view('sellers.dashbord',[
+            'orders' => Order::latest()->where('resturent_id', $resturentId)->where('order_status','!=','resived')->paginate(4),
+            'foodItems' => $foodItems,
+        ]);
+    }
+
+    // Update order status
+    public function orderStatusUpdate(Request $request, Order $order)
+    {
+        // validation rules
+        $formFields = $request->validate([
+            'order_status' => 'required|not_in:0|in:preparing,send,resived'
+        ]);
+
+        // Update order_status in order table
+        $order->update($formFields);
+
+        // Redirect user
+        return back()->with('message', 'Order status updated!');
+    }
+
+    // Show order archive page
+    public function orderArchive()
+    {
+        // Resturent id
+        $resturentId = Seller::find(auth()->guard('seller')->id())->resturent->id;
+
+        // Food items for our resturent orders
+        $foodItems = OrderFoodItem::whereRelation('order', 'resturent_id', '=', $resturentId)->get();
+
+        return view('sellers.order_archive', [
+            'orders' => Order::latest()->where('resturent_id', $resturentId)->where('order_status', 'resived')->paginate(5),
+            'foodItems' => $foodItems,
+        ]);
     }
 
     /**
@@ -110,7 +152,7 @@ class SellerHomeController extends Controller
     public function updateResturentStatus(Request $request)
     {
         $formFields = $request->validate([
-            'status' => 'required',
+            'status' => 'required|in:closed,open',
         ]);
 
         // Update resturent setting
@@ -164,7 +206,7 @@ class SellerHomeController extends Controller
     public function foodsFoodParty(Request $request, Food $food)
     {
         $formFields = $request->validate([
-            'food_party' => 'required|not_in:11'
+            'food_party' => 'required|not_in:11|in:1,0'
         ]);
 
         // Update value of food_party
@@ -193,12 +235,13 @@ class SellerHomeController extends Controller
     // Update foods
     public function foodsUpdate(Request $request, Food $food)
     {
+        // Validation
         $formFields = $request->validate([
             'name' => 'required',
             'material' => '',
             'price' => 'required|numeric',
             'discount' => 'nullable|integer|between:1,99',
-            'tags' => 'required',
+            'tags' => 'required'
         ]);
 
         // Seperate tags array by comma
