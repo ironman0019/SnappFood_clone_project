@@ -39,7 +39,7 @@
             <a class="nav-link" href="/seller/dashbord/resturent_setting">Resturent setting</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Orders archive</a>
+            <a class="nav-link" href="/seller/dashbord/order_archive">Orders archive</a>
           </li>
         </ul>
       </div>
