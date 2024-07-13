@@ -80,5 +80,7 @@ Route::prefix('seller/dashbord')->group(function() {
     Route::put('/foods/update/{food}', [SellerHomeController::class, 'foodsUpdate']); // Update food
     Route::put('/foods/discount/{food}', [SellerHomeController::class, 'foodsRemoveDiscount']); // Remove food's discount
     Route::delete('/foods/delete/{food}', [SellerHomeController::class, 'foodsDestroy']); // Delete food from database
+    Route::put('/order_status/{order}', [SellerHomeController::class, 'orderStatusUpdate']); // Update order status
+    Route::get('/order_archive', [SellerHomeController::class, 'orderArchive']); // Show order archive page
 });
 
