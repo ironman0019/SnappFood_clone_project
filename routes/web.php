@@ -61,7 +61,7 @@ Route::delete('/admin/comment_deleteing/{comment}', [AdminController::class, 'de
 Route::prefix('seller')->group(function() {
     Route::get('/register', [SellerController::class, 'create']);  // Show seller register form
     Route::post('/store', [SellerController::class, 'store']);  // Create seller 
-    Route::get('/dashbord', [SellerHomeController::class, 'index'])->middleware('completeResturentInfo');  // Show seller dashbord page
+    Route::get('/dashbord', [SellerHomeController::class, 'index'])->middleware('completeResturentInfo'); // Show seller dashbord page
     Route::get('/complete_res_info', [SellerController::class, 'createResturentInfo']); // Show complete resturent info form
     Route::put('/complete_res_info', [SellerController::class, 'storeResturentInfo']); // Store resturent info
     Route::get('/login', [SellerController::class, 'login']); // Show seller login page
@@ -82,5 +82,6 @@ Route::prefix('seller/dashbord')->group(function() {
     Route::delete('/foods/delete/{food}', [SellerHomeController::class, 'foodsDestroy']); // Delete food from database
     Route::put('/order_status/{order}', [SellerHomeController::class, 'orderStatusUpdate']); // Update order status
     Route::get('/order_archive', [SellerHomeController::class, 'orderArchive']); // Show order archive page
+    Route::get('/sell_report', [SellerHomeController::class, 'sellReport']); // Show sell report page
 });
 
