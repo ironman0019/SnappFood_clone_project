@@ -1,13 +1,5 @@
 <x-admin_layout>
 
-    <!-- flash message -->
-    @if(session()->has('delMessage'))
-    <div x-data="{show: true}" x-init="setTimeout(() => show= false,3000)" x-show="show" class="alert alert-danger" role="alert">
-        {{session('delMessage')}}
-    </div>
-    @endif
-
-
 
     <!-- Show comments that thire delete request is true -->
     <section class="container mt-3 mb-3">
