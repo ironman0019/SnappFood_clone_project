@@ -33,7 +33,7 @@
             <a class="nav-link" href="/seller/dashbord/foods">Foods</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Sell Report</a>
+            <a class="nav-link" href="/seller/dashbord/sell_report">Sell Report</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/seller/dashbord/resturent_setting">Resturent setting</a>
