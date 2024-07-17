@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Food;
 use App\Models\FoodTag;
 use App\Models\Order;
@@ -75,6 +76,50 @@ class SellerHomeController extends Controller
             'orders' => Order::where('resturent_id', $resturentId)->filter(request(['search']))->get(),
             'foodItems' => $foodItems,
         ]);
+    }
+
+    // Show comments page
+    public function comments()
+    {
+        // Resturent id
+        $resturentId = Seller::find(auth()->guard('seller')->id())->resturent->id;
+
+        // Food items for our resturent orders
+        $foodItems = OrderFoodItem::whereRelation('order', 'resturent_id', '=', $resturentId)->get();
+
+        return view('sellers.comments', [
+            'comments' => Comment::whereRelation('order', 'resturent_id', '=', $resturentId)->paginate(4),
+            'foodItems' => $foodItems,
+        ]);
+    }
+
+    // Update comments reply
+    public function commentsReply(Request $request, Comment $comment)
+    {
+        // Validation
+        $formFields = $request->validate([
+            'reply' => 'nullable|max:255'
+        ]);
+
+        // Update comment reply column
+        $comment->update($formFields);
+
+        // redirect
+        return back()->with('message', 'Comment reply edited!');
+    }
+
+    // Request to admin for deleting comment
+    public function commentsDelReq(Comment $comment)
+    {
+        // Make sure user is auth!
+        if (!auth()->guard('seller')->check()) {
+            abort(403, 'Unauth action!');
+        }
+
+        $comment->delete_req = true;
+        $comment->save();
+
+        return back()->with('message', 'Your request submited to admin successfully!');
     }
 
 
