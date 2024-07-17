@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,5 +19,20 @@ class Order extends Model
     public function orderFoodItem()
     {
         return $this->hasMany(OrderFoodItem::class, 'order_id');
+    }
+
+    // Scope filter for sort orders by month or week
+    public function scopeFilter($query, array $filters)
+    {
+        if($filters['search'] ?? false) {
+
+            if(request('search') == "week") {
+                $query->whereYear('created_at', date('Y'))->whereBetween('created_at', [Carbon::today()->subDays(6), Carbon::now()]);
+            }
+            elseif(request('search') == "month") {
+                $query->whereYear('created_at', date('Y'))->whereMonth('created_at', date('m'));
+            }
+
+        }
     }
 }
