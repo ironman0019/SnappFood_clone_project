@@ -64,38 +64,6 @@ class SellerController extends Controller
         return redirect('/seller/dashbord')->with('message', 'You are logged in!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
-
     // Show resturent complete info form
     public function createResturentInfo()
     {
@@ -147,5 +115,16 @@ class SellerController extends Controller
         }
 
         return back()->withErrors(['email' => 'invalid credentials'])->onlyInput('email');
+    }
+
+    // Logout seller
+    public function logout(Request $request)
+    {
+        Auth::guard('seller')->logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerate();
+
+        return redirect('/seller/login')->with('message', 'You have been logged out!');
     }
 }
