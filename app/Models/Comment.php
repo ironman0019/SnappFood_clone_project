@@ -8,4 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Comment extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['reply'];
+
+    // Relation with user
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    // Relation with order
+    public function order()
+    {
+        return $this->belongsTo(Order::class, 'order_id');
+    }
 }
