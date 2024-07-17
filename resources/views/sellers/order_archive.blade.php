@@ -1,9 +1,9 @@
 <x-seller_home_layout>
     <!-- Orders table -->
     <section class="m-2">
-        <h5 class="">Orders</h5>
+        <h5 class="">Orders History</h5>
         <div class="container">
-            <table class="table table-striped">
+            <table class="table table-striped mt-3">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
