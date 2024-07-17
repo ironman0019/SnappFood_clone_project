@@ -20,12 +20,12 @@
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <p class="navbar-brand">Welcome {{auth()->guard('seller')->user()->name}}</p>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+        <ul class="navbar-nav mb-2 mb-lg-0">
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/seller/dashbord">Home</a>
           </li>
@@ -36,12 +36,21 @@
             <a class="nav-link" href="/seller/dashbord/sell_report">Sell Report</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="/seller/dashbord/comments">Comments</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="/seller/dashbord/resturent_setting">Resturent setting</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/seller/dashbord/order_archive">Orders archive</a>
           </li>
         </ul>
+      </div>
+      <div class="">
+        <form method="POST" action="/seller/logout">
+          @csrf
+          <button class="btn btn-outline-danger" type="submit"><i class="fa-solid fa-door-closed"></i> Logout</button>
+        </form>
       </div>
     </div>
   </nav>
