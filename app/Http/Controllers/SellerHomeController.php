@@ -62,53 +62,21 @@ class SellerHomeController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    // Show sell report page
+    public function sellReport()
     {
-        //
+        // Resturent id
+        $resturentId = Seller::find(auth()->guard('seller')->id())->resturent->id;
+
+        // Food items for our resturent orders
+        $foodItems = OrderFoodItem::whereRelation('order', 'resturent_id', '=', $resturentId)->get();
+
+        return view('sellers.sell_report', [
+            'orders' => Order::where('resturent_id', $resturentId)->filter(request(['search']))->get(),
+            'foodItems' => $foodItems,
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 
     // Show resturent setting page
     public function resturentSetting()
