@@ -66,6 +66,7 @@ Route::prefix('seller')->group(function() {
     Route::put('/complete_res_info', [SellerController::class, 'storeResturentInfo']); // Store resturent info
     Route::get('/login', [SellerController::class, 'login']); // Show seller login page
     Route::post('/auth', [SellerController::class, 'auth']); // Login seller
+    Route::post('/logout', [SellerController::class, 'logout']); // Logout seller
 });
 
 // Sellers dashbord
@@ -83,5 +84,8 @@ Route::prefix('seller/dashbord')->group(function() {
     Route::put('/order_status/{order}', [SellerHomeController::class, 'orderStatusUpdate']); // Update order status
     Route::get('/order_archive', [SellerHomeController::class, 'orderArchive']); // Show order archive page
     Route::get('/sell_report', [SellerHomeController::class, 'sellReport']); // Show sell report page
+    Route::get('/comments', [SellerHomeController::class, 'comments']); // Show comments page
+    Route::put('/comments/{comment}', [SellerHomeController::class, 'commentsReply']); // Update comment reply
+    Route::post('/comments/{comment}', [SellerHomeController::class, 'commentsDelReq']); // Request to admin for deleting comment
 });
 
