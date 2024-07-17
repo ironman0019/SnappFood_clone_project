@@ -21,6 +21,12 @@ class Order extends Model
         return $this->hasMany(OrderFoodItem::class, 'order_id');
     }
 
+    // Relation with comments
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'order_id');
+    }
+
     // Scope filter for sort orders by month or week
     public function scopeFilter($query, array $filters)
     {
