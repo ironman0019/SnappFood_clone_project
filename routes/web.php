@@ -61,8 +61,8 @@ Route::delete('/admin/comment_deleteing/{comment}', [AdminController::class, 'de
 Route::prefix('seller')->group(function() {
     Route::get('/register', [SellerController::class, 'create']);  // Show seller register form
     Route::post('/store', [SellerController::class, 'store']);  // Create seller 
-    Route::get('/dashbord', [SellerHomeController::class, 'index'])->middleware('completeResturentInfo'); // Show seller dashbord page
-    Route::get('/complete_res_info', [SellerController::class, 'createResturentInfo']); // Show complete resturent info form
+    Route::get('/dashbord', [SellerHomeController::class, 'index'])->middleware('sellerAuth')->middleware('completeResturentInfo'); // Show seller dashbord page
+    Route::get('/complete_res_info', [SellerController::class, 'createResturentInfo'])->middleware('sellerAuth'); // Show complete resturent info form
     Route::put('/complete_res_info', [SellerController::class, 'storeResturentInfo']); // Store resturent info
     Route::get('/login', [SellerController::class, 'login']); // Show seller login page
     Route::post('/auth', [SellerController::class, 'auth']); // Login seller
@@ -70,7 +70,7 @@ Route::prefix('seller')->group(function() {
 });
 
 // Sellers dashbord
-Route::prefix('seller/dashbord')->group(function() {
+Route::group(['middleware' => ['sellerAuth'], 'prefix' => 'seller/dashbord'], function() {
     Route::get('/resturent_setting', [SellerHomeController::class, 'resturentSetting']); // Show resturent setting page
     Route::put('/resturent_setting', [SellerHomeController::class, 'updateResturentSetting']); // Update resturent setting
     Route::put('/resturent_status', [SellerHomeController::class, 'updateResturentStatus']); // Update resturent status
