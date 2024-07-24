@@ -39,7 +39,9 @@
                         <td>{{$food->name}}</td>
                         <td>{{$food->material}}</td>
                         <td>{{$food->price}}</td>
-                        <td>image</td>
+                        <td>
+                            <img src="{{$food->picture ? asset('storage/' . $food->picture) : asset('/images/snappFood_logo.png')}}" alt="image" class="tw-w-20 tw-h-10">
+                        </td>
                         <td>{{$food->tags}}</td>
                         <td>
                             <a class="btn btn-warning mb-3" href="/seller/dashbord/foods/edit/{{$food->id}}">
@@ -104,7 +106,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/seller/dashbord/foods" method="POST">
+                    <form action="/seller/dashbord/foods" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
                             <label for="" class="form-label">Food name</label>
@@ -130,9 +132,9 @@
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">
-                                Resturent logo
+                                Food picture
                             </label>
-                            <input type="file" class="form-control" name="picture" value="" />
+                            <input type="file" class="form-control" name="picture" value=""/>
                             @error('picture')
                             <div class="form-text text-danger">{{$message}}</div>
                             @enderror

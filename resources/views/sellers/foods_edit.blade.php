@@ -15,7 +15,7 @@
 <body class="tw-bg-pink-300">
 
     <section class="container mt-5">
-    <form action="/seller/dashbord/foods/update/{{$food->id}}" method="POST">
+    <form action="/seller/dashbord/foods/update/{{$food->id}}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('put')
         <div class="mb-3">
@@ -52,10 +52,11 @@
         </div>
         <div class="mb-3">
             <label for="" class="form-label">
-                Resturent logo
+                Food picture
             </label>
-            <input type="file" class="form-control" name="photo" value="" />
-            @error('photo')
+            <input type="file" class="form-control" name="picture" value=""/>
+            <img class="tw-w-32 tw-mt-5" src="{{$food->picture ? asset('storage/' . $food->picture) : asset('/images/snappFood_logo.png')}}" alt="image">
+            @error('picture')
             <div class="form-text text-danger">{{$message}}</div>
             @enderror
         </div>

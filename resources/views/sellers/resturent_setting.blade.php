@@ -39,7 +39,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="/seller/dashbord/resturent_setting" method="POST">
+                        <form action="/seller/dashbord/resturent_setting" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('put')
                             <div class="mb-3">
@@ -53,7 +53,8 @@
                                 <label for="" class="form-label">
                                     Resturent logo
                                 </label>
-                                <input type="file" class="form-control" name="photo" value="{{old('photo')}}" />
+                                <input type="file" class="form-control" name="photo" value=""/>
+                                <img class="tw-w-32 tw-mt-5" src="{{$resturent->photo ? asset('storage/' . $resturent->photo) : asset('/images/snappFood_logo.png')}}" alt="image">
                                 @error('photo')
                                 <div class="form-text text-danger">{{$message}}</div>
                                 @enderror
@@ -156,7 +157,5 @@
                 </div>
             </div>
         </div>
-
-
     </section>
 </x-seller_home_layout>
