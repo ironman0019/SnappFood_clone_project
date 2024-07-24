@@ -163,6 +163,7 @@ class SellerHomeController extends Controller
             'delivary_price' => ['required', 'numeric'],
             'work_hours' => 'required|not_in:0',
             'work_hours2' => 'required|not_in:0',
+            'photo' => 'mimes:jpg,jpeg,png'
         ]);
 
         $formFields['work_hours'] = $formFields['work_hours']. '-'. $formFields['work_hours2'];
@@ -229,7 +230,8 @@ class SellerHomeController extends Controller
             'name' => 'required',
             'price' => 'required|numeric',
             'tags' => 'required',
-            'material' => ''
+            'material' => '',
+            'picture' => 'mimes:jpg,jpeg,png'
         ]);
 
         // upload picture
@@ -303,7 +305,8 @@ class SellerHomeController extends Controller
             'material' => '',
             'price' => 'required|numeric',
             'discount' => 'nullable|integer|between:1,99',
-            'tags' => 'required'
+            'tags' => 'required',
+            'picture' => 'mimes:jpg,jpeg,png'
         ]);
 
         // upload picture
