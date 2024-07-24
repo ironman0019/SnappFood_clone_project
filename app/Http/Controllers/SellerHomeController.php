@@ -168,6 +168,11 @@ class SellerHomeController extends Controller
         $formFields['work_hours'] = $formFields['work_hours']. '-'. $formFields['work_hours2'];
         array_pop($formFields); // deleting work_hours2
 
+        // upload picture
+        if ($request->hasFile('photo')) {
+            $formFields['photo'] = $request->file('photo')->store('resturent_logo', 'public');
+        };
+
         // Update resturent setting
         $seller_id = auth()->guard('seller')->id();
         $resturent = Resturent::where('seller_id', $seller_id);
@@ -226,6 +231,11 @@ class SellerHomeController extends Controller
             'tags' => 'required',
             'material' => ''
         ]);
+
+        // upload picture
+        if ($request->hasFile('picture')) {
+            $formFields['picture'] = $request->file('picture')->store('food_pictures', 'public');
+        };
 
 
         // Seperate tags array by comma
@@ -295,6 +305,11 @@ class SellerHomeController extends Controller
             'discount' => 'nullable|integer|between:1,99',
             'tags' => 'required'
         ]);
+
+        // upload picture
+        if ($request->hasFile('picture')) {
+            $formFields['picture'] = $request->file('picture')->store('food_pictures', 'public');
+        };
 
         // Seperate tags array by comma
         $formFields['tags'] = implode(",", $formFields['tags']);
