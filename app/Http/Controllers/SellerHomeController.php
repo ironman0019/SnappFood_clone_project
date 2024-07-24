@@ -36,6 +36,11 @@ class SellerHomeController extends Controller
     // Update order status
     public function orderStatusUpdate(Request $request, Order $order)
     {
+        // Make sure user is auth!
+        if (!auth()->guard('seller')->check()) {
+            abort(403, 'Unauth action!');
+        }
+
         // validation rules
         $formFields = $request->validate([
             'order_status' => 'required|not_in:0|in:preparing,send,resived'
@@ -96,6 +101,11 @@ class SellerHomeController extends Controller
     // Update comments reply
     public function commentsReply(Request $request, Comment $comment)
     {
+        // Make sure user is auth!
+        if (!auth()->guard('seller')->check()) {
+            abort(403, 'Unauth action!');
+        }
+
         // Validation
         $formFields = $request->validate([
             'reply' => 'nullable|max:255'
@@ -138,7 +148,13 @@ class SellerHomeController extends Controller
 
     // Update resturent setting
     public function updateResturentSetting(Request $request)
-    {  
+    {
+        // Make sure user is auth!
+        if (!auth()->guard('seller')->check()) {
+            abort(403, 'Unauth action!');
+        }
+
+        // Validation form fields
         $formFields = $request->validate([
             'name' => ['required', 'min:3'],
             'tag' => 'required|not_in:0',
@@ -164,6 +180,12 @@ class SellerHomeController extends Controller
     // Update resturent status
     public function updateResturentStatus(Request $request)
     {
+        // Make sure user is auth!
+        if (!auth()->guard('seller')->check()) {
+            abort(403, 'Unauth action!');
+        }
+
+        // Validation fields
         $formFields = $request->validate([
             'status' => 'required|in:closed,open',
         ]);
@@ -192,6 +214,12 @@ class SellerHomeController extends Controller
     // Create food & store in database
     public function foodsStore(Request $request)
     {
+        // Make sure user is auth!
+        if (!auth()->guard('seller')->check()) {
+            abort(403, 'Unauth action!');
+        }
+
+        // Validation fields
         $formFields = $request->validate([
             'name' => 'required',
             'price' => 'required|numeric',
@@ -218,6 +246,12 @@ class SellerHomeController extends Controller
     // Add or remove food from food party
     public function foodsFoodParty(Request $request, Food $food)
     {
+        // Make sure user is auth!
+        if (!auth()->guard('seller')->check()) {
+            abort(403, 'Unauth action!');
+        }
+
+        // Validation fields
         $formFields = $request->validate([
             'food_party' => 'required|not_in:11|in:1,0'
         ]);
@@ -248,6 +282,11 @@ class SellerHomeController extends Controller
     // Update foods
     public function foodsUpdate(Request $request, Food $food)
     {
+        // Make sure user is auth!
+        if (!auth()->guard('seller')->check()) {
+            abort(403, 'Unauth action!');
+        }
+
         // Validation
         $formFields = $request->validate([
             'name' => 'required',
@@ -270,6 +309,11 @@ class SellerHomeController extends Controller
     // Remove food discount
     public function foodsRemoveDiscount(Request $request, Food $food)
     {
+        // Make sure user is auth!
+        if (!auth()->guard('seller')->check()) {
+            abort(403, 'Unauth action!');
+        }
+
         // get null value from input form
         $formFields = $request->all('discount');
 
@@ -283,6 +327,11 @@ class SellerHomeController extends Controller
     // Delete food
     public function foodsDestroy(Food $food)
     {
+        // Make sure user is auth!
+        if (!auth()->guard('seller')->check()) {
+            abort(403, 'Unauth action!');
+        }
+
         $food->delete();
         return redirect('/seller/dashbord/foods')->with('delMessage', 'Food Deleted!');
     }
