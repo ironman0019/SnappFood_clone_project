@@ -64,21 +64,21 @@
             @csrf
             <div class="mb-3">
               <label for="" class="form-label">Owner's name</label>
-              <input type="text" class="form-control" id="" placeholder="Full name" name="name">
+              <input type="text" class="form-control" id="" placeholder="Full name" name="name" value="{{old('name')}}">
               @error('name')
               <div class="form-text text-danger">{{$message}}</div>
               @enderror
             </div>
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Email address</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" name="email">
+              <input type="email" class="form-control" id="exampleInputEmail1" name="email" value="{{old('email')}}">
               @error('email')
               <div class="form-text text-danger">{{$message}}</div>
               @enderror
             </div>
             <div class="mb-3">
               <label for="" class="form-label">Phone number</label>
-              <input type="text" class="form-control" id="" name="phone">
+              <input type="text" class="form-control" id="" name="phone" value="{{old('phone')}}">
               @error('phone')
               <div class="form-text text-danger">{{$message}}</div>
               @enderror
@@ -86,7 +86,7 @@
             </div>
             <div class="mb-3">
               <label for="" class="form-label">Password</label>
-              <input type="password" class="form-control" id="" name="password">
+              <input type="password" class="form-control" id="" name="password" value="{{old('password')}}">
               @error('password')
               <div class="form-text text-danger">{{$message}}</div>
               @enderror
