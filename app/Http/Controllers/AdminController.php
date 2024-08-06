@@ -94,13 +94,19 @@ class AdminController extends Controller
     }
 
     // Create resturent tag and store in database
-    public function resturentsTagsStore(Request $request, ResturentTag $resturentTag)
+    public function resturentsTagsStore(Request $request)
     {
         $formFields = $request->validate([
             'tag' => 'required',
+            'picture' => 'mimes:jpg,jpeg,png',
         ]);
 
-        $resturentTag->create($formFields);
+        // upload picture
+        if ($request->hasFile('picture')) {
+            $formFields['picture'] = $request->file('picture')->store('resturent_tags_pic', 'public');
+        };
+
+        ResturentTag::create($formFields);
 
         return back()->with('message', 'Tag created successfully!');
     }
