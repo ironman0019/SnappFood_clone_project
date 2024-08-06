@@ -9,5 +9,5 @@ class ResturentTag extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['tag'];
+    protected $fillable = ['tag', 'picture'];
 }
