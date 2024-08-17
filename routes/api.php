@@ -21,6 +21,7 @@ Route::fallback(function () {
 // Public routes
 Route::group([], function() {
     Route::post('/register', [ApiUserController::class, 'register']);
+    Route::post('/login', [ApiUserController::class, 'login']);
 });
 
 // Protected routes
