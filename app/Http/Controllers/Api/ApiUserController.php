@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ApiUserController extends Controller
 {
@@ -37,6 +37,33 @@ class ApiUserController extends Controller
     }
 
     // Login user
+    public function login(Request $request)
+    {
+        // Validate inputs
+        $formFields = $request->validate([
+            'email' => 'required|string',
+            'password' => 'required|string'
+        ]);
+
+        if(auth()->attempt($formFields)) {
+            if(auth()->check()) {
+                // Create Token
+                $user = User::where('email', $formFields['email'])->first();
+                $token = $user->createToken('userToken')->plainTextToken;
+
+                // response
+                $response = [
+                    'user' => $user,
+                    'token' => $token,
+                ];
+                return response($response, 201);
+            }
+        }
+
+        return response([
+            'message' => 'invalid User'
+        ], 401);
+    }
 
     // Logout user
     public function logout(Request $request)
