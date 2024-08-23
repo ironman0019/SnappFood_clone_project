@@ -10,6 +10,7 @@ class OrderFoodItem extends Model
     use HasFactory;
 
     protected $table = 'order_food_item';
+    protected $fillable = ['order_id', 'food_id', 'quantity_ordered'];
 
     // Relation with order
     public function order()
