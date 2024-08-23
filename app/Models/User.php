@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Validation\Rules\Can;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -50,5 +51,11 @@ class User extends Authenticatable
     public function comments()
     {
         return $this->hasMany(Comment::class, 'user_id');
+    }
+
+    // Realtion with carts
+    public function carts()
+    {
+        return $this->hasMany(Cart::class, 'user_id');
     }
 }
