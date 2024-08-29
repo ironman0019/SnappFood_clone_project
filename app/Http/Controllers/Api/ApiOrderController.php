@@ -72,7 +72,11 @@ class ApiOrderController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $order = Order::findOrfail($id);
+        if($order->user_id !== auth()->user()->id) {
+            return response('Unauthtenticated!', 401);
+        }
+        return new ResourcesOrder(Order::findOrfail($id));
     }
 
     /**
