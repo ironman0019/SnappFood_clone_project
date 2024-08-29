@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ApiAdminController;
+use App\Http\Controllers\Api\ApiCartController;
 use App\Http\Controllers\Api\ApiOrderController;
 use App\Http\Controllers\Api\ApiUserController;
 use Illuminate\Http\Request;
@@ -27,5 +28,6 @@ Route::group([], function() {
 // Protected routes
 Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::apiResource('orders', ApiOrderController::class);
+    Route::apiResource('carts', ApiCartController::class);
     Route::post('/logout', [ApiUserController::class, 'logout']);
 });
