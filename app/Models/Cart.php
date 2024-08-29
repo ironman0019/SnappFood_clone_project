@@ -9,7 +9,7 @@ class Cart extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['food_id', 'resturent_id', 'quantity'];
+    protected $fillable = ['user_id','food_id', 'resturent_id', 'quantity'];
 
     // Relation with food
     public function food()
