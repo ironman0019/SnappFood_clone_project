@@ -18,6 +18,7 @@ class Comment extends JsonResource
             'id' => $this->id,
             'body' => $this->body,
             'reply' => $this->reply,
+            'order_id' => $this->order_id,
         ];
     }
 }
