@@ -22,4 +22,10 @@ class Resturent extends Model
     {
         return $this->hasMany(Food::class, 'resturent_id');
     }
+
+    // Relation with rateings
+    public function rateings()
+    {
+        return $this->hasMany(Rate::class, 'resturent_id');
+    }
 }
