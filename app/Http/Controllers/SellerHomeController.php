@@ -163,7 +163,8 @@ class SellerHomeController extends Controller
             'delivary_price' => ['required', 'numeric'],
             'work_hours' => 'required|not_in:0',
             'work_hours2' => 'required|not_in:0',
-            'photo' => 'mimes:jpg,jpeg,png'
+            'photo' => 'mimes:jpg,jpeg,png',
+            'city' => 'required|string'
         ]);
 
         $formFields['work_hours'] = $formFields['work_hours']. '-'. $formFields['work_hours2'];

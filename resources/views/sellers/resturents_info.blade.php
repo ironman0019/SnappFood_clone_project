@@ -69,6 +69,13 @@
               @enderror
             </div>
             <div class="mb-3">
+              <label for="" class="form-label">City</label>
+              <input type="text" class="form-control" id="" name="city">
+              @error('city')
+              <div class="form-text text-danger">{{$message}}</div>
+              @enderror
+            </div>
+            <div class="mb-3">
               <label for="" class="form-label">Bank info</label>
               <div class="input-group">
                 <span class="input-group-text" id="basic-addon1">IR-</span>

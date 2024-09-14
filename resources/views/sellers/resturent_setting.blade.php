@@ -86,6 +86,13 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
+                                <label for="" class="form-label">City</label>
+                                <input type="text" class="form-control" id="" name="city" value="{{$resturent->city}}">
+                                @error('city')
+                                <div class="form-text text-danger">{{$message}}</div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
                                 <label for="" class="form-label">Delivary price</label>
                                 <input type="text" class="form-control" id="" name="delivary_price" value="{{$resturent->delivary_price}}">
                                 @error('delivary_price')

@@ -58,6 +58,7 @@ class SellerController extends Controller
             'phone' => '0',
             'address' => '0',
             'bank' => '0',
+            'city' => '0'
         ]);
 
         // redirect 
@@ -79,6 +80,7 @@ class SellerController extends Controller
             'phone' => 'required',
             'address' => 'required',
             'bank' => 'required|numeric|min:24',
+            'city' => 'required|string'
         ]);
 
         $formFields['bank'] = "IR-".$formFields['bank'];
