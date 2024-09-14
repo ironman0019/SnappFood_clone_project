@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\ApiCartController;
 use App\Http\Controllers\Api\ApiCommentController;
 use App\Http\Controllers\Api\ApiOrderController;
 use App\Http\Controllers\Api\ApiRateController;
+use App\Http\Controllers\Api\ApiResturentTagController;
 use App\Http\Controllers\Api\ApiUserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,7 @@ Route::fallback(function () {
 Route::group([], function() {
     Route::post('/register', [ApiUserController::class, 'register']);
     Route::post('/login', [ApiUserController::class, 'login']);
+    Route::get('/categories', [ApiResturentTagController::class, 'index']);
 });
 
 // Protected routes
