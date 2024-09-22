@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\SellerHomeController;
+use App\Http\Controllers\UserController;
 use App\Models\Seller;
 use Illuminate\Support\Facades\Route;
 
@@ -88,4 +90,22 @@ Route::group(['middleware' => ['sellerAuth'], 'prefix' => 'seller/dashbord'], fu
     Route::put('/comments/{comment}', [SellerHomeController::class, 'commentsReply']); // Update comment reply
     Route::post('/comments/{comment}', [SellerHomeController::class, 'commentsDelReq']); // Request to admin for deleting comment
 });
+
+
+// Home public routes
+Route::group([], function() {
+    Route::get('/', [HomeController::class, 'index']); // Index page
+    Route::get('/login', [UserController::class, 'login']); // Show user login form
+    Route::get('/register', [UserController::class, 'register']); // Show user register form
+    Route::post('/login/auth', [UserController::class, 'auth']); // Login user
+    Route::post('/register', [UserController::class, 'store']); // Register user in database
+});
+
+// Home protected routes
+Route::group([], function() {
+    Route::get('/home', [HomeController::class, 'home']); // Home page (after user login in website!)
+    Route::get('/logout', [UserController::class, 'logout']); // Logout user
+});
+
+
 
