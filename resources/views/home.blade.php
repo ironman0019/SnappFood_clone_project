@@ -55,7 +55,7 @@
                 </div>
             </a>
             @foreach($resturents as $resturent)
-            <a href="#" class="tw-no-underline" data-bs-toggle="tooltip" data-bs-title="{{$resturent->name}}">
+            <a href="/food_order/{{$resturent->id}}" class="tw-no-underline" data-bs-toggle="tooltip" data-bs-title="{{$resturent->name}}">
                 <div class="card rounded-4" style="width: 7rem; height: 9rem; background-color: rgb(243, 244, 246) ;">
                     <div class="card-body">
                         <img src="{{$resturent->photo ? asset('storage/' . $resturent->photo) : asset('/images/snappFood_logo.png')}}" alt="logo"
