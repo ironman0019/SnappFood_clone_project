@@ -105,6 +105,8 @@ Route::group([], function() {
 Route::group([], function() {
     Route::get('/home', [HomeController::class, 'home']); // Home page (after user login in website!)
     Route::get('/logout', [UserController::class, 'logout']); // Logout user
+    Route::get('/food_order/{resturent}', [HomeController::class, 'foodOrder']); // Show resturent foods for order 
+    Route::post('/add_to_cart', [HomeController::class, 'addToCart']);
 });
 
 
