@@ -8,10 +8,13 @@ use App\Models\Order;
 use App\Models\OrderFoodItem;
 use App\Models\Resturent;
 use App\Models\ResturentTag;
+use App\Models\User;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Redirect;
+
+use function Laravel\Prompts\form;
 
 class HomeController extends Controller
 {
@@ -35,12 +38,14 @@ class HomeController extends Controller
         $categories = ResturentTag::all();
         $foods = Food::where('food_party', 1)->get();
         $newResturents = Resturent::latest()->paginate(4);
+        $orders = Order::where('user_id', $user->id)->latest()->get();
 
         return view('home', [
             'resturents' => $resturents,
             'categories' => $categories,
             'foods' => $foods,
             'newResturents' => $newResturents,
+            'orders' => $orders,
         ]);
     }
 
@@ -48,13 +53,20 @@ class HomeController extends Controller
     {
         
         $foods = Food::where('resturent_id', $id)->get();
+        $resturent = Resturent::find($id);
+
+        if(!$resturent) {
+            return redirect('/home');
+        }
+
         return view('food_order', [
             'foods' => $foods,
+            'resturent' => $resturent,
             'resturentId' => $id
         ]);
     }
 
-    public function addToCart(Request $request)
+    public function foodOrderStore(Request $request)
     {
 
         // Get the order data from the AJAX request
@@ -68,6 +80,10 @@ class HomeController extends Controller
 
         // Find the resturent
         $resturent = Resturent::find($resturentId);
+
+        if($resturent->status === 'closed') {
+            return response()->json(['success' => false, 'message' => 'Sorry! Resturent is closed!']);
+        }
 
         // Create order
         Order::create([
@@ -95,6 +111,111 @@ class HomeController extends Controller
 
         // Respond with success
         return response()->json(['success' => true, 'message' => 'Order Submitted!']);
+    }
+
+
+    // Show categories page
+    public function categories($cat_id)
+    {
+        $category = ResturentTag::find($cat_id);
+        if(!$category) {
+            return redirect('/home');
+        }
+
+        $resturents = Resturent::where('tag', $category->tag)->get();
+        return view('category', ['resturents' => $resturents, 'category' => $category]);
+    }
+
+
+    // Show all foods in food party
+    public function allFoodParty()
+    {
+        $foods = Food::where('food_party', 1)->get();
+        return view('see_all_foodparty', ['foods' => $foods]);
+    }
+
+    // Update user address
+    public function updateUserAddress(Request $request)
+    {
+        $formFields = $request->validate([
+            'address' => 'required|string|min:8'
+        ]);
+
+        // Update user
+        $userId = auth()->user()->id;
+        $user = User::where('id', $userId);
+        $user->update($formFields);
+
+        // Redirect user
+        return redirect('/home')->with('message', 'User info updated!');
+    }
+
+
+    // Delete user address
+    public function deleteUserAddress()
+    {
+        $userId = auth()->user()->id;
+        $user = User::where('id', $userId);
+        $user->update(['address' => '']);
+
+        return redirect('/home')->with('delMessage', 'user address deleted!');
+    }
+
+    // Show order detaile
+    public function orderDetaile($id)
+    {
+        $order = Order::find($id);
+        if(!$order) {
+            return redirect('/home');
+        }
+
+        // Food items for order
+        $foodItems = OrderFoodItem::where('order_id', $id)->get();
+
+        return view('order_detaile', ['order' => $order, 'foodItems' => $foodItems]);
+    }
+
+
+    // Repeat order
+    public function reOrder($order_id)
+    {
+        $order = Order::find($order_id);
+        if(!$order) {
+            return redirect('/home');
+            exit;
+        }
+
+        $resturent = Resturent::find($order->resturent_id);
+        $foodItems = OrderFoodItem::where('order_id', $order_id)->get();
+        $totalPrice = 0;
+
+        foreach ($foodItems as $foodItem) {
+            $totalPrice = $foodItem->food->price * $foodItem->quantity_ordered + $totalPrice;
+        }
+
+        // Create order
+        Order::create([
+            'user_id' => $order->user_id,
+            'resturent_id' => $order->resturent_id,
+            'address' => $order->address,
+            'delivary_fee' => $resturent->delivary_price,
+            'total_amount' => $totalPrice
+        ]);
+
+        // Find the order just created
+        $order = Order::where('user_id', auth()->user()->id)->where('created_at', now())->first();
+
+        // Create order_items
+        foreach($foodItems as $foodItem) {
+            OrderFoodItem::create([
+                'order_id' => $order->id,
+                'food_id' => $foodItem->food_id,
+                'quantity_ordered' => $foodItem->quantity_ordered
+            ]);
+        }
+
+        return redirect('/home')->with('message', 'Your order submited successfully!');
+
     }
 
     /**
