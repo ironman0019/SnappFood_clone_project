@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Food Ordering Page</title>
+    <!-- tailwind output css -->
+    @vite('resources/css/app.css')
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -35,6 +37,7 @@
 
     <div class="container mt-5">
         <h1 class="text-center mb-4">Order Your Favorite Food</h1>
+        <h3 class="text-center mb-2">From <span class="tw-text-pink-600">{{$resturent->name}}</span> Resturent!</h3>
         <div class="row">
             @foreach($foods as $food)
             <div class="col-md-4">
@@ -89,7 +92,7 @@
             resturent_id = resturentId;
 
             order.push({
-                id: foodId, 
+                id: foodId,
                 name: foodName,
                 price: price,
                 quantity: quantity,
@@ -128,7 +131,7 @@
             };
 
             // Send AJAX request to Laravel backend
-            fetch('/add_to_cart', {
+            fetch('/food_order', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -140,14 +143,18 @@
                 .then(data => {
                     if (data.success) {
                         alert('Order Submitted! Thank you for your purchase.');
+                        // Redirect the user after showing the alert
+                        setTimeout(function() {
+                            window.location.href = '/home';
+                        }, 1000);
                         // Reset the order and UI
-                        order = [];
-                        totalPrice = 0;
-                        document.getElementById('order-list').innerHTML = '';
-                        document.getElementById('total-price').textContent = '0.00';
-                        document.getElementById('order-summary').style.display = 'none';
+                        // order = [];
+                        // totalPrice = 0;
+                        // document.getElementById('order-list').innerHTML = '';
+                        // document.getElementById('total-price').textContent = '0.00';
+                        // document.getElementById('order-summary').style.display = 'none';
                     } else {
-                        alert('There was an error submitting your order. Please try again.');
+                        alert(data.message);
                     }
                 })
                 .catch(error => {
