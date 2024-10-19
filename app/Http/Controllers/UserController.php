@@ -71,4 +71,31 @@ class UserController extends Controller
         return redirect('/')->with('message', "You have been logged out!");
     }
 
+    // Show user settings page
+    public function userSetting()
+    {
+        $user = auth()->user();
+        return view('user_setting', ['user' => $user]);
+    }
+
+
+    // Update user
+    public function update(Request $request)
+    {
+        $formFields = $request->validate([
+            'name' => 'required|string',
+            'address' => 'required|string|min:8',
+            'city' => 'required|string|min:2'
+        ]);
+
+        // Update user
+        $userId = auth()->user()->id;
+        $user = User::where('id', $userId);
+        $user->update($formFields);
+
+        // Redirect user
+        return redirect('/home')->with('message', 'User info updated!');
+
+    }
+
 }
