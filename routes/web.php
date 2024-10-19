@@ -106,7 +106,15 @@ Route::group([], function() {
     Route::get('/home', [HomeController::class, 'home']); // Home page (after user login in website!)
     Route::get('/logout', [UserController::class, 'logout']); // Logout user
     Route::get('/food_order/{resturent}', [HomeController::class, 'foodOrder']); // Show resturent foods for order 
-    Route::post('/add_to_cart', [HomeController::class, 'addToCart']);
+    Route::post('/food_order', [HomeController::class, 'foodOrderStore']); // Store order in database
+    Route::get('/category/{resturent_tag}', [HomeController::class, 'categories']); // Show category page
+    Route::get('/all_food_party', [HomeController::class, 'allFoodParty']); // Show all foods in food party
+    Route::get('/user_setting', [UserController::class, 'userSetting']); // Show user setting page
+    Route::put('/user_setting/update', [UserController::class, 'update']); // Update user info
+    Route::put('/update_user_address', [HomeController::class, 'updateUserAddress']); // Update user address
+    Route::get('/delete_user_address', [HomeController::class, 'deleteUserAddress']); // Delete user address
+    Route::get('/order_detaile/{id}', [HomeController::class, 'orderDetaile']); // Show order detaile
+    Route::get('/reorder/{id}', [HomeController::class, 'reOrder']); // Reorder the order that user selected
 });
 
 
