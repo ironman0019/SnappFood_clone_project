@@ -18,8 +18,8 @@
                             <i class="fa-regular fa-user"></i>
                         </a>
                         <ul class="dropdown-menu shadow">
-                            <li><a class="dropdown-item mb-3" href="#"><i class="fa-regular fa-user tw-mr-2"></i>{{auth()->user()->name}}</a></li>
-                            <a href="#" class="tw-text-xs tw-no-underline tw-text-green-500 tw-absolute tw-left-9 tw-top-8">View user account</a>
+                            <li><a class="dropdown-item mb-3" href="/user_setting"><i class="fa-regular fa-user tw-mr-2"></i>{{auth()->user()->name}}</a></li>
+                            <a href="/user_setting" class="tw-text-xs tw-no-underline tw-text-green-500 tw-absolute tw-left-9 tw-top-8">View user account</a>
                             <li><a class="dropdown-item" href="#"><i class="fa-solid fa-wallet tw-mr-2"></i>wallet <span class="tw-ml-8 tw-text-xs tw-text-gray-400">50 dollar</span></a></li>
                             <li><a class="dropdown-item" href="/logout"><i class="fa-solid fa-arrow-right-from-bracket tw-mr-2"></i>Log out</a></li>
                         </ul>
@@ -45,15 +45,6 @@
     <!-- first catagory cards -->
     <section class="m-5">
         <div class="d-flex gap-3">
-            <a href="#" class="tw-no-underline" data-bs-toggle="tooltip" data-bs-title="Resturant">
-                <div class="card rounded-4" style="width: 7rem; height: 9rem; background-color: rgb(243, 244, 246) ;">
-                    <div class="card-body">
-                        <img src="https://cdn.snappfood.ir/uploads/images/review-app/icons/count/restaurant-desktop.png" alt=""
-                            class="tw-w-24 tw-h-20">
-                        <h5 class="tw-text-gray-600 tw-text-sm tw-font-sans tw-text-center">Resturent</h5>
-                    </div>
-                </div>
-            </a>
             @foreach($resturents as $resturent)
             <a href="/food_order/{{$resturent->id}}" class="tw-no-underline" data-bs-toggle="tooltip" data-bs-title="{{$resturent->name}}">
                 <div class="card rounded-4" style="width: 7rem; height: 9rem; background-color: rgb(243, 244, 246) ;">
@@ -74,8 +65,8 @@
         @foreach($categories as $category)
         <div class="card-img m-3 mb-4 col-12 col-md-6 col-lg-3" style="width: 11rem;">
             <div class="position-relative hover:tw-animate-pulse tw-transition tw-ease-in-out tw-delay-150 hover:tw-translate-y-1 hover:tw-scale-110 tw-duration-300">
-                <a href="#" data-bs-toggle="tooltip" data-bs-title="{{$category['tag']}}"><img src="{{$category['picture'] ? asset('storage/' . $category['picture']) : asset('/images/snappFood_logo.png')}}" class="rounded " alt="..."></a>
-                <a href="#" data-bs-toggle="tooltip" data-bs-title="{{$category['tag']}}" class="btn position-absolute mx-4 px-2 top-100 start-0 translate-middle rounded-end-3 text-bg-light text-secondary-emphasis">{{$category['tag']}} <i class="fa-solid fa-chevron-right tw-text-pink-600"></i></a>
+                <a href="/category/{{$category->id}}" data-bs-toggle="tooltip" data-bs-title="{{$category['tag']}}"><img src="{{$category['picture'] ? asset('storage/' . $category['picture']) : asset('/images/snappFood_logo.png')}}" class="rounded " alt="..."></a>
+                <a href="/category/{{$category->id}}" data-bs-toggle="tooltip" data-bs-title="{{$category['tag']}}" class="btn position-absolute mx-4 px-2 top-100 start-0 translate-middle rounded-end-3 text-bg-light text-secondary-emphasis">{{$category['tag']}} <i class="fa-solid fa-chevron-right tw-text-pink-600"></i></a>
             </div>
         </div>
         @endforeach
@@ -91,7 +82,7 @@
                 <div class="">
                     <p class="tw-font-semibold tw-text-xl tw-text-white"><i class="fa-solid fa-champagne-glasses tw-mx-1"></i>Food Party</p>
                     <p class="tw-text-sm tw-text-white">Special instant discounts for you</p>
-                    <a href="#" class="tw-mb-2 tw-ml-4">
+                    <a href="/all_food_party" class="tw-mb-2 tw-ml-4">
                         <button class="tw-bg-white tw-text-gray-700 tw-py-1 tw-px-8 tw-rounded-xl">
                             See All <i class="fa-solid fa-chevron-right mx-2"></i>
                         </button>
@@ -165,19 +156,19 @@
                         <!-- score -->
                         <p class="tw-text-center tw-text-xs tw-text-gray-500">
                             @php
-                                $rates = $newResturent->rateings;
-                                $sumRate = 0;
-                                $count = 0;
-                                
-                                foreach($rates as $rate) {
-                                    $sumRate = $rate->rate + $sumRate;
-                                    $count++;
-                                }
-                                if($sumRate == 0) {
-                                    echo 'no reviews';
-                                } else {
-                                    echo $sumRate / $count ;
-                                }
+                            $rates = $newResturent->rateings;
+                            $sumRate = 0;
+                            $count = 0;
+
+                            foreach($rates as $rate) {
+                            $sumRate = $rate->rate + $sumRate;
+                            $count++;
+                            }
+                            if($sumRate == 0) {
+                            echo 'no reviews';
+                            } else {
+                            echo $sumRate / $count ;
+                            }
                             @endphp
                             <i class="fa-solid fa-star tw-mx-1 tw-text-yellow-500"></i>
                         </p>
@@ -493,19 +484,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     <!-- offcanvas -->
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
         <div class="offcanvas-header">
@@ -514,87 +492,27 @@
         </div>
         <div class="offcanvas-body">
             <div class="container shadow border-1">
+                @foreach($orders as $order)
                 <div class="tw-m-3 tw-mb-10">
                     <div class="d-flex">
-                        <a href="#"><img src="./images/SnappFood_logo.png" alt="Restoran Logo!" class="tw-w-14"></a>
-                        <a href="#" class="tw-text-gray-700 tw-no-underline">
-                            <p class="tw-font-bold tw-ml-3">Chiken Family</p>
+                        <a href="/food_order/{{$order->resturent_id}}"><img src="{{$order->resturent->photo ? asset('storage/' . $order->resturent->photo) : 'https://cdn.snappfood.ir/300x200/uploads/images/vendor-cover-app-review/4/05.jpg' }}" alt="Restoran Logo!" class="tw-w-14"></a>
+                        <a href="/food_order/{{$order->resturent_id}}" class="tw-text-gray-700 tw-no-underline">
+                            <p class="tw-font-bold tw-ml-3">{{$order->resturent->name}}</p>
                         </a>
-                        <p class="tw-text-sm tw-text-gray-500 tw-ml-3 tw-mt-1"> H:H DD/MM/MM</p>
+                        <p class="tw-text-sm tw-text-gray-500 tw-ml-3 tw-mt-1"> {{$order->created_at}}</p>
                     </div>
-                    <!-- <p class="tw-text-xs tw-text-gray-500 tw-absolute tw-left-24 tw-top-28 tw-ml-2"> H:H DD/MM/MM</p> -->
-
-                    <div class="d-flex justify-content-between mt-3">
-                        <a href="#">
-                            <button class="tw-bg-gray-200 tw-text-gray-700 tw-font-semibold tw-px-7 tw-py-1 tw-rounded-lg hover:tw-bg-gray-300">SEE factor<i class="fa-solid fa-circle-info tw-ml-1"></i>
+                    <div class="d-flex justify-content-between mt-3 gap-2">
+                        <a href="/order_detaile/{{$order->id}}">
+                            <button class="tw-bg-gray-200 tw-text-gray-700 tw-font-semibold tw-px-7 tw-py-1 tw-rounded-lg hover:tw-bg-gray-300">See Detaile<i class="fa-solid fa-circle-info tw-ml-1"></i>
                             </button>
                         </a>
-                        <a href="#">
+                        <a href="/reorder/{{$order->id}}">
                             <button class="tw-bg-gray-200 tw-text-gray-700 tw-font-semibold tw-px-7 tw-py-1 tw-rounded-lg hover:tw-bg-gray-300">Order again<i class="fa-solid fa-arrows-rotate tw-ml-1"></i>
                             </button>
                         </a>
                     </div>
                 </div>
-                <div class="tw-m-3 tw-mb-10">
-                    <div class="d-flex">
-                        <a href="#"><img src="./images/SnappFood_logo.png" alt="Restoran Logo!" class="tw-w-14"></a>
-                        <a href="#" class="tw-text-gray-700 tw-no-underline">
-                            <p class="tw-font-bold tw-ml-3">Chiken Family</p>
-                        </a>
-                        <p class="tw-text-sm tw-text-gray-500 tw-ml-3 tw-mt-1"> H:H DD/MM/MM</p>
-                    </div>
-                    <div class="d-flex justify-content-between mt-3">
-                        <a href="#">
-                            <button class="tw-bg-gray-200 tw-text-gray-700 tw-font-semibold tw-px-7 tw-py-1 tw-rounded-lg hover:tw-bg-gray-300">SEE factor<i class="fa-solid fa-circle-info tw-ml-1"></i>
-                            </button>
-                        </a>
-                        <a href="#">
-                            <button class="tw-bg-gray-200 tw-text-gray-700 tw-font-semibold tw-px-7 tw-py-1 tw-rounded-lg hover:tw-bg-gray-300">Order again<i class="fa-solid fa-arrows-rotate tw-ml-1"></i>
-                            </button>
-                        </a>
-                    </div>
-                </div>
-                <div class="tw-m-3 tw-mb-10">
-                    <div class="d-flex">
-                        <a href="#"><img src="./images/SnappFood_logo.png" alt="Restoran Logo!" class="tw-w-14"></a>
-                        <a href="#" class="tw-text-gray-700 tw-no-underline">
-                            <p class="tw-font-bold tw-ml-3">Chiken Family</p>
-                        </a>
-                        <p class="tw-text-sm tw-text-gray-500 tw-ml-3 tw-mt-1"> H:H DD/MM/MM</p>
-                    </div>
-                    <div class="d-flex justify-content-between mt-3">
-                        <a href="#">
-                            <button class="tw-bg-gray-200 tw-text-gray-700 tw-font-semibold tw-px-7 tw-py-1 tw-rounded-lg hover:tw-bg-gray-300">SEE factor<i class="fa-solid fa-circle-info tw-ml-1"></i>
-                            </button>
-                        </a>
-                        <a href="#">
-                            <button class="tw-bg-gray-200 tw-text-gray-700 tw-font-semibold tw-px-7 tw-py-1 tw-rounded-lg hover:tw-bg-gray-300">Order again<i class="fa-solid fa-arrows-rotate tw-ml-1"></i>
-                            </button>
-                        </a>
-                    </div>
-                </div>
-                <div class="tw-m-3 tw-mb-10">
-                    <div class="d-flex">
-                        <a href="#"><img src="./images/SnappFood_logo.png" alt="Restoran Logo!" class="tw-w-14"></a>
-                        <a href="#" class="tw-text-gray-700 tw-no-underline">
-                            <p class="tw-font-bold tw-ml-3">Chiken Family</p>
-                        </a>
-                        <p class="tw-text-sm tw-text-gray-500 tw-ml-3 tw-mt-1"> H:H DD/MM/MM</p>
-                    </div>
-                    <div class="d-flex justify-content-between mt-3">
-                        <a href="#">
-                            <button class="tw-bg-gray-200 tw-text-gray-700 tw-font-semibold tw-px-7 tw-py-1 tw-rounded-lg hover:tw-bg-gray-300">SEE factor<i class="fa-solid fa-circle-info tw-ml-1"></i>
-                            </button>
-                        </a>
-                        <a href="#">
-                            <button class="tw-bg-gray-200 tw-text-gray-700 tw-font-semibold tw-px-7 tw-py-1 tw-rounded-lg hover:tw-bg-gray-300">Order again<i class="fa-solid fa-arrows-rotate tw-ml-1"></i>
-                            </button>
-                        </a>
-                    </div>
-                </div>
-
-
-
+                @endforeach
 
             </div>
         </div>
@@ -606,65 +524,25 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Choose Address</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Your Address</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="border-1 mb-2">
-                        <h5 class="tw-text-sm m-2">Title</h5>
-                        <div class="d-flex m-2">
-                            <input class="form-check-input mx-1" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label mx-2" for="flexRadioDefault1">
-                                Default radio adffw wfvdsafgdh thbgfdsdgbfn bd
-                            </label>
-                            <div class="">
-                                <a href="#" class="mx-2 text-danger"><i class="fa-solid fa-trash"></i></a>
-                                <a href="#" class="text-success"><i class="fa-solid fa-pen-to-square"></i></a>
-                            </div>
+                    <form action="/update_user_address" method="POST" id="user-address-form">
+                        @csrf 
+                        @method('PUT')
+                        <div class="mb-3">
+                            <label for="" class="form-label">Address</label>
+                            <input type="text" class="form-control" id="" name="address" value="{{auth()->user()->address}}">
+                            @error('address')
+                            <div class="form-text text-danger">{{$message}}</div>
+                            @enderror
                         </div>
-                    </div>
-                    <div class="border-1 mb-2">
-                        <h5 class="tw-text-sm m-2">Title</h5>
-                        <div class="d-flex m-2">
-                            <input class="form-check-input mx-1" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label mx-2" for="flexRadioDefault1">
-                                Default radio adffw wfvdsafgdh thbgfdsdgbfn bd
-                            </label>
-                            <div class="">
-                                <a href="#" class="mx-2 text-danger"><i class="fa-solid fa-trash"></i></a>
-                                <a href="#" class="text-success"><i class="fa-solid fa-pen-to-square"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="border-1 mb-2">
-                        <h5 class="tw-text-sm m-2">Title</h5>
-                        <div class="d-flex m-2">
-                            <input class="form-check-input mx-1" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label mx-2" for="flexRadioDefault1">
-                                Default radio adffw wfvdsafgdh thbgfdsdgbfn bd
-                            </label>
-                            <div class="">
-                                <a href="#" class="mx-2 text-danger"><i class="fa-solid fa-trash"></i></a>
-                                <a href="#" class="text-success"><i class="fa-solid fa-pen-to-square"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="border-1 mb-2">
-                        <h5 class="tw-text-sm m-2">Title</h5>
-                        <div class="d-flex m-2">
-                            <input class="form-check-input mx-1" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label mx-2" for="flexRadioDefault1">
-                                Default radio adffw wfvdsafgdh thbgfdsdgbfn bd
-                            </label>
-                            <div class="">
-                                <a href="#" class="mx-2 text-danger"><i class="fa-solid fa-trash"></i></a>
-                                <a href="#" class="text-success"><i class="fa-solid fa-pen-to-square"></i></a>
-                            </div>
-                        </div>
-                    </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success px-5">New Address<i class="fa-solid fa-plus mx-2"></i></button>
+                    <a href="/delete_user_address" class="btn btn-danger px-5">Delete Address<i class="fa-solid fa-trash mx-2"></i></a>
+                    <button type="submit" form="user-address-form" class="btn btn-warning px-5">Edit Address<i class="fa-solid fa-pen-to-square mx-2"></i></button>
                 </div>
             </div>
         </div>
