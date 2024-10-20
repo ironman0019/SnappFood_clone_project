@@ -48,8 +48,8 @@
                         <p class="card-text">{{$food->material}}</p>
                         <label for="food-quantity-{{$food->id}}">Quantity:</label>
                         <input type="number" name="quantities[{{$food->id}}]" class="form-control mb-2" id="food-quantity-{{$food->id}}" min="1" value="1">
-                        <button class="btn btn-primary btn-block" onclick="addToOrder({{$food->id}}, '{{$food->name}}', {{$food->price}}, 'food-quantity-{{$food->id}}', {{intval($resturentId)}})">
-                            Add to Order ({{number_format($food->price)}} Toman)
+                        <button class="btn btn-primary btn-block" onclick="addToOrder({{$food->id}}, '{{$food->name}}', {{$food->discount ? $food->price - ($food->price * $food->discount / 100) : $food->price}}, 'food-quantity-{{$food->id}}', {{intval($resturentId)}})">
+                            Add to Order ({{number_format($food->discount ? $food->price - ($food->price * $food->discount / 100) : $food->price)}} Toman)
                         </button>
                     </div>
                 </div>
@@ -57,12 +57,42 @@
             @endforeach
         </div>
 
+        <!-- Resturent comments -->
+        <div class="container">
+            <h2>Comments</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Comment Id</th>
+                        <th scope="col">Body</th>
+                        <th scope="col">Reply</th>
+                        <th scope="col">Created_at</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($comments as $comment)
+                    <tr>
+                        <td>{{$loop->iteration}}</td>
+                        <td>{{$comment->id}}</td>
+                        <td>{{$comment->body}}</td>
+                        <td>{{$comment->reply}}</td>
+                        <td>{{$comment->created_at}}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
         <!-- Order Summary -->
         <div class="order-summary mt-4" id="order-summary">
             <h4>Order Summary</h4>
             <ul id="order-list" class="list-group mb-3"></ul>
             <h5>Total: $<span id="total-price">0.00</span></h5>
-            <button id="submit-order" class="btn btn-success btn-block">Submit Order</button>
+            <div class="d-flex">
+                <a href="/home" class="btn btn-secondary mx-2">Back</a>
+                <button id="submit-order" class="btn btn-success btn-block">Submit Order</button>
+            </div>
         </div>
     </div>
 
