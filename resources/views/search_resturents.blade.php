@@ -6,7 +6,7 @@
     <!-- category resturents cards  -->
     <section class="m-4">
         <div class="tw-flex">
-            <h3 class="tw-text-gray-600 tw-m-5">{{request()->search}}</h3>
+            <h3 class="tw-text-gray-600 tw-m-5">Your search : {{request()->search}}</h3>
         </div>
         <div class="d-flex gap-3">
             @foreach($resturents as $resturent)
