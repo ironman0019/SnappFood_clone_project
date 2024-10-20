@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Comment;
 use App\Models\Food;
 use App\Models\Order;
 use App\Models\OrderFoodItem;
+use App\Models\Rate;
 use App\Models\Resturent;
 use App\Models\ResturentTag;
 use App\Models\User;
@@ -39,6 +41,7 @@ class HomeController extends Controller
         $foods = Food::where('food_party', 1)->get();
         $newResturents = Resturent::latest()->paginate(4);
         $orders = Order::where('user_id', $user->id)->latest()->get();
+        $allResturents = Resturent::all();
 
         return view('home', [
             'resturents' => $resturents,
@@ -46,6 +49,7 @@ class HomeController extends Controller
             'foods' => $foods,
             'newResturents' => $newResturents,
             'orders' => $orders,
+            'allResturents' => $allResturents,
         ]);
     }
 
@@ -54,6 +58,8 @@ class HomeController extends Controller
         
         $foods = Food::where('resturent_id', $id)->get();
         $resturent = Resturent::find($id);
+        $comments = Comment::whereRelation('order', 'resturent_id', '=', $id)->get();
+
 
         if(!$resturent) {
             return redirect('/home');
@@ -62,7 +68,8 @@ class HomeController extends Controller
         return view('food_order', [
             'foods' => $foods,
             'resturent' => $resturent,
-            'resturentId' => $id
+            'resturentId' => $id,
+            'comments' => $comments
         ]);
     }
 
@@ -216,6 +223,40 @@ class HomeController extends Controller
 
         return redirect('/home')->with('message', 'Your order submited successfully!');
 
+    }
+
+
+    // Create comment
+    public function createComment(Request $request, $order_id)
+    {
+        $formFields = $request->validate([
+            'body' => 'required|string|min:3'
+        ]);
+
+        Comment::create([
+            'user_id' => auth()->user()->id,
+            'order_id' => $order_id,
+            'body' => $formFields['body']
+        ]);
+
+        return back()->with('message', 'Comment created!');
+    }
+
+
+    // Rate the resturent
+    public function rateResturent(Request $request, $resturent_id)
+    {
+        $formFields = $request->validate([
+            'rate' => 'required|numeric|digits_between:1,5'
+        ]);
+
+        Rate::create([
+            'user_id' => auth()->user()->id,
+            'resturent_id' => $resturent_id,
+            'rate' => $formFields['rate']
+        ]);
+
+        return back()->with('message', 'You have been rate this resturent successfully!');
     }
 
     /**
