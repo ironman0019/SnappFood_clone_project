@@ -9,7 +9,7 @@
         <!-- Cards -->
         @foreach($foods as $food)
         <div class="d-flex justify-content-center mx-4">
-            <a href="#" class="tw-no-underline">
+            <a href="/food_order/{{$food->resturent_id}}" class="tw-no-underline">
                 <div class="card shadow" style="width: 16rem;">
                     <p class="tw-text-xs tw-text-gray-400 tw-text-center tw-mt-2">{{$food->resturent->name}}</p>
                     @if($food->resturent->delivary_price == null)
