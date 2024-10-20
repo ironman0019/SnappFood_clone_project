@@ -25,8 +25,9 @@
                         </ul>
                     </li>
                 </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search &#xF002; " style="font-family:Arial, FontAwesome" aria-label="Search">
+                <form class="d-flex" role="search" action="/search_resturents" method="POST">
+                    @csrf
+                    <input class="form-control me-2" type="search" placeholder="Search Resturents &#xF002; " style="font-family:Arial, FontAwesome" aria-label="Search" name="search">
                     <button class="btn btn-outline-success me-5 " type="submit">Search</button>
                 </form>
                 <ul class="navbar-nav me-auto  mb-2 mb-lg-0">
