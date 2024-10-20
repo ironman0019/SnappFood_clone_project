@@ -117,6 +117,7 @@ Route::group([], function() {
     Route::get('/reorder/{id}', [HomeController::class, 'reOrder']); // Reorder the order that user selected
     Route::post('/create_comment/{order_id}', [HomeController::class, 'createComment']); // Create comment
     Route::post('/rate_resturent/{resturent_id}', [HomeController::class, 'rateResturent']); // Create rating for resturent
+    Route::post('/search_resturents', [HomeController::class, 'searchResturent']); // Show resturent search page
 });
 
 
