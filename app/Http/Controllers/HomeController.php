@@ -259,6 +259,17 @@ class HomeController extends Controller
         return back()->with('message', 'You have been rate this resturent successfully!');
     }
 
+
+    // Show categories page
+    public function searchResturent(Request $request)
+    {
+        $search = $request->validate([
+            'search' => 'required|string'
+        ]);
+        $resturents = Resturent::where('name', 'like', '%' . $search['search'] . '%')->get();
+        return view('search_resturents', ['resturents' => $resturents]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
