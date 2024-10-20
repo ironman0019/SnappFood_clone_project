@@ -43,42 +43,53 @@
 
 
     <!-- Footer -->
-    <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-6 py-5 border-top bg-secondary-subtle">
-        <div class="col m-3">
-            <img src="https://snappfood.ir/static/images/senf.png" alt="">
+    <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 border-top bg-secondary-subtle">
+        <!-- License or Certification Image -->
+        <div class="col mb-3 text-center text-md-start">
+            <img src="https://snappfood.ir/static/images/senf.png" alt="Certification" class="img-fluid">
         </div>
+
+        <!-- First Column Links -->
         <div class="col mb-3">
-            <ul class="nav flex-column ">
-                <li class="nav-item mb-2"><a href="#" class="nav-link text-secondary">Lorem</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link text-secondary">Lorem</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link text-secondary">Lorem</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link text-secondary">Lorem</a></li>
+            <h5 class="text-secondary">Category 1</h5>
+            <ul class="nav flex-column">
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-secondary">Lorem 1</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-secondary">Lorem 2</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-secondary">Lorem 3</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-secondary">Lorem 4</a></li>
             </ul>
         </div>
+
+        <!-- Second Column Links -->
         <div class="col mb-3">
-            <ul class="nav flex-column ">
-                <li class="nav-item mb-2"><a href="#" class="nav-link text-secondary">Lorem</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link text-secondary">Lorem</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link text-secondary">Lorem</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link text-secondary">Lorem</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link text-secondary">Lorem</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link text-secondary">Lorem</a></li>
+            <h5 class="text-secondary">Category 2</h5>
+            <ul class="nav flex-column">
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-secondary">Lorem 1</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-secondary">Lorem 2</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-secondary">Lorem 3</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-secondary">Lorem 4</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-secondary">Lorem 5</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-secondary">Lorem 6</a></li>
             </ul>
         </div>
+
+        <!-- Brand Description and Social Media Links -->
         <div class="col mb-3">
-            <div class="">
-                <h5 class="tw-text-pink-600">EmadFood</h5>
-                <p class="tw-text-sm text-secondary">Food ordering experience, from fast food to snap food</p>
-                <div class="d-flex gap-3">
-                    <a href="#" class=""><i class="fa-brands fa-instagram tw-text-2xl tw-text-gray-500"></i></a>
-                    <a href="#" class=""><i class="fa-brands fa-linkedin tw-text-2xl tw-text-gray-500"></i></a>
-                    <a href="#" class=""><i class="fa-brands fa-telegram tw-text-2xl tw-text-gray-500"></i></a>
-                    <a href="#" class=""><i class="fa-brands fa-twitter tw-text-2xl tw-text-gray-500"></i></a>
-                </div>
+            <h5 class="tw-text-pink-600">EmadFood</h5>
+            <p class="text-secondary">Food ordering experience, from fast food to snap food.</p>
+            <div class="d-flex gap-3">
+                <a href="#" class="text-secondary"><i class="fa-brands fa-instagram fa-2xl"></i></a>
+                <a href="#" class="text-secondary"><i class="fa-brands fa-linkedin fa-2xl"></i></a>
+                <a href="#" class="text-secondary"><i class="fa-brands fa-telegram fa-2xl"></i></a>
+                <a href="#" class="text-secondary"><i class="fa-brands fa-twitter fa-2xl"></i></a>
             </div>
         </div>
-        <div class="col mb-3">
-            <a href="index.html"><img src="./images/SnappFood_logo.png" alt="" class="w-50"></a>
+
+        <!-- Logo Section -->
+        <div class="col mb-3 text-center text-md-end">
+            <a href="index.html">
+                <img src="{{asset('/images/snappFood_logo.png')}}" alt="SnappFood Logo" class="img-fluid w-50">
+            </a>
         </div>
     </footer>
 
