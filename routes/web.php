@@ -115,6 +115,8 @@ Route::group([], function() {
     Route::get('/delete_user_address', [HomeController::class, 'deleteUserAddress']); // Delete user address
     Route::get('/order_detaile/{id}', [HomeController::class, 'orderDetaile']); // Show order detaile
     Route::get('/reorder/{id}', [HomeController::class, 'reOrder']); // Reorder the order that user selected
+    Route::post('/create_comment/{order_id}', [HomeController::class, 'createComment']); // Create comment
+    Route::post('/rate_resturent/{resturent_id}', [HomeController::class, 'rateResturent']); // Create rating for resturent
 });
 
 
