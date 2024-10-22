@@ -93,7 +93,7 @@ Route::group(['middleware' => ['sellerAuth'], 'prefix' => 'seller/dashbord'], fu
 
 
 // Home public routes
-Route::group([], function() {
+Route::group(['middleware' => ['guest']], function() {
     Route::get('/', [HomeController::class, 'index']); // Index page
     Route::get('/login', [UserController::class, 'login']); // Show user login form
     Route::get('/register', [UserController::class, 'register']); // Show user register form
@@ -102,7 +102,7 @@ Route::group([], function() {
 });
 
 // Home protected routes
-Route::group([], function() {
+Route::group(['middleware' => ['auth']], function() {
     Route::get('/home', [HomeController::class, 'home']); // Home page (after user login in website!)
     Route::get('/logout', [UserController::class, 'logout']); // Logout user
     Route::get('/food_order/{resturent}', [HomeController::class, 'foodOrder']); // Show resturent foods for order 
