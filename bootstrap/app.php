@@ -20,6 +20,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'sellerAuth' => SellerAuth::class,
             'completeResturentInfo' => CompleteResturentInfo::class,
         ]);
+        $middleware->redirectGuestsTo('login');
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
