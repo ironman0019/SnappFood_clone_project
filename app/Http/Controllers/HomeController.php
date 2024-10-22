@@ -26,9 +26,11 @@ class HomeController extends Controller
     public function index()
     {
         $categories = ResturentTag::all();
+        $resturentCities = Resturent::distinct()->get(['city']);
 
         return view('index', [
-            'categories' => $categories
+            'categories' => $categories,
+            'resturentCities' => $resturentCities
         ]);
     }
 
