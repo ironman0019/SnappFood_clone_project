@@ -21,7 +21,7 @@
         }
 
         .order-summary {
-            display: inline-block;
+            display: block;
             background-color: #e9ecef;
             padding: 15px;
             border-radius: 10px;
@@ -133,27 +133,58 @@
             const foodTotal = price * quantity;
             resturent_id = resturentId;
 
-            order.push({
+            // Push the new order into the array
+            const newItem = {
                 id: foodId,
                 name: foodName,
                 price: price,
                 quantity: quantity,
-                resturentId: resturentId
-            });
+                total: foodTotal
+            };
+            order.push(newItem);
             totalPrice += foodTotal;
 
-            const orderSummary = document.getElementById('order-summary');
+            // Create list item for order summary
             const orderList = document.getElementById('order-list');
             const totalPriceElement = document.getElementById('total-price');
 
-            orderSummary.style.display = 'block';
 
             const listItem = document.createElement('li');
             listItem.classList.add('list-group-item');
-            listItem.textContent = `${foodName} - ${quantity} x $${price.toLocaleString()} = $${foodTotal.toLocaleString()}`;
+            listItem.setAttribute('data-food-id', foodId);
+
+            listItem.innerHTML = `
+            ${foodName} - ${quantity} x $${price.toLocaleString()} = $${foodTotal.toLocaleString()}
+            <button class="btn btn-danger btn-sm float-right" onclick="removeFromOrder(${foodId})">Delete</button>
+            `;
+
             orderList.appendChild(listItem);
 
             totalPriceElement.textContent = totalPrice.toLocaleString();
+        }
+
+        function removeFromOrder(foodId) {
+            const orderList = document.getElementById('order-list');
+            const totalPriceElement = document.getElementById('total-price');
+
+            // Find the index of the item to remove
+            const index = order.findIndex(item => item.id === foodId);
+            if (index !== -1) {
+                // Subtract the item's total price from the overall total
+                totalPrice -= order[index].total;
+
+                // Remove the item from the order array
+                order.splice(index, 1);
+
+                // Remove the list item from the UI
+                const listItem = orderList.querySelector(`[data-food-id='${foodId}']`);
+                if (listItem) {
+                    orderList.removeChild(listItem);
+                }
+
+                // Update the total price display
+                totalPriceElement.textContent = totalPrice.toLocaleString();
+            }
         }
 
         // Function to submit the order via AJAX
