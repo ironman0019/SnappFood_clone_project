@@ -236,8 +236,8 @@
         <div class="row">
             <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
                 <ul class="list-unstyled mb-0" style="column-count: 2;">
-                    @foreach($allResturents as $allResturent)
-                    <li><a href="#" class="text-decoration-none text-body-secondary">{{$allResturent->city}}</a></li>
+                    @foreach($resturentCities as $resturentCity)
+                    <li><a href="#" class="text-decoration-none text-body-secondary">{{$resturentCity->city}}</a></li>
                     @endforeach
                 </ul>
             </div>
