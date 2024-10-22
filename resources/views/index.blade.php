@@ -15,10 +15,11 @@
                         Order Online <span class="tw-text-pink-600">Food and ...</span>
                     </h2>
                     <p class="text-dark lead">Order online Food, Fruites, Bread, Cakes and...</p>
-                    <div class="input-group mt-5 mb-5">
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon1"><i class="fa-solid fa-magnifying-glass"></i></button>
-                        <input type="text" class="form-control" placeholder="Chose your location" aria-label="Username" aria-describedby="basic-addon1">
-                    </div>
+                    <form action="/search_resturents" method="POST" role="search" class="input-group mt-5 mb-5">
+                        @csrf
+                        <button class="btn btn-outline-secondary" type="submit" id="button-addon1"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        <input type="search" class="form-control" placeholder="Chose your resturent" name="search">
+                    </form>
                     <a class="tw-bg-pink-600 hover:tw-bg-pink-500 tw-text-white tw-font-mono tw-font-bold tw-py-2 tw-px-4 tw-rounded tw-no-underline" href="/login">
                         Login Or Register
                     </a>
@@ -43,8 +44,8 @@
         @foreach($categories as $category)
         <div class="card-img m-3 mb-4 col-12 col-md-6 col-lg-3" style="width: 12rem;">
             <div class="position-relative hover:tw-animate-pulse tw-transition tw-ease-in-out tw-delay-150 hover:tw-translate-y-1 hover:tw-scale-110 tw-duration-300">
-                <a href="#" data-bs-toggle="tooltip" data-bs-title="{{$category['tag']}}"><img src="{{$category['picture'] ? asset('storage/' . $category['picture']) : asset('/images/snappFood_logo.png')}}" class="rounded " alt="..."></a>
-                <a href="#" data-bs-toggle="tooltip" data-bs-title="{{$category['tag']}}" class="btn position-absolute mx-4 px-2 top-100 start-0 translate-middle rounded-end-3 text-bg-light text-secondary-emphasis">{{$category['tag']}} <i class="fa-solid fa-chevron-right tw-text-pink-600"></i></a>
+                <a href="/category/{{$category->id}}" data-bs-toggle="tooltip" data-bs-title="{{$category['tag']}}"><img src="{{$category['picture'] ? asset('storage/' . $category['picture']) : asset('/images/snappFood_logo.png')}}" class="rounded " alt="..."></a>
+                <a href="/category/{{$category->id}}" data-bs-toggle="tooltip" data-bs-title="{{$category['tag']}}" class="btn position-absolute mx-4 px-2 top-100 start-0 translate-middle rounded-end-3 text-bg-light text-secondary-emphasis">{{$category['tag']}} <i class="fa-solid fa-chevron-right tw-text-pink-600"></i></a>
             </div>
         </div>
         @endforeach
@@ -91,283 +92,67 @@
 
     <!-- Cities Catagory -->
     <h5 class="tw-text-gray-700 tw-m-5">Emadfood in Iranian cities</h5>
-    <section class="m-3 row">
-        <div class="col-4 col-md-2 col-lg-1">
-            <ul class="nav flex-column ">
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-            </ul>
+    <section class="m-3">
+        <div class="row">
+            <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                <ul class="list-unstyled mb-0" style="column-count: 2;">
+                    @foreach($resturentCities as $resturentCity)
+                    <li><a href="#" class="text-decoration-none text-body-secondary">{{$resturentCity->city}}</a></li>
+                    @endforeach
+                </ul>
+            </div>
         </div>
-        <div class="col-4 col-md-2 col-lg-1">
-            <ul class="nav flex-column ">
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-            </ul>
-        </div>
-        <div class="col-4 col-md-2 col-lg-1">
-            <ul class="nav flex-column ">
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-            </ul>
-        </div>
-        <div class="col-4 col-md-2 col-lg-1">
-            <ul class="nav flex-column ">
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-            </ul>
-        </div>
-        <div class="col-4 col-md-2 col-lg-1">
-            <ul class="nav flex-column ">
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-            </ul>
-        </div>
-        <div class="col-4 col-md-2 col-lg-1">
-            <ul class="nav flex-column ">
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-            </ul>
-        </div>
-        <div class="col-4 col-md-2 col-lg-1">
-            <ul class="nav flex-column ">
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-            </ul>
-        </div>
-        <div class="col-4 col-md-2 col-lg-1">
-            <ul class="nav flex-column ">
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-            </ul>
-        </div>
-        <div class="col-4 col-md-2 col-lg-1">
-            <ul class="nav flex-column ">
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-            </ul>
-        </div>
-        <div class="col-4 col-md-2 col-lg-1">
-            <ul class="nav flex-column ">
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-            </ul>
-        </div>
-        <div class="col-4 col-md-2 col-lg-1">
-            <ul class="nav flex-column ">
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-            </ul>
-        </div>
-        <div class="col-4 col-md-2 col-lg-1">
-            <ul class="nav flex-column ">
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-body-secondary">Lorem</a></li>
-            </ul>
-        </div>
-
     </section>
 
     <!-- Footer -->
-    <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-6 py-5 border-top bg-secondary-subtle">
-        <div class="col m-3">
-            <img src="https://snappfood.ir/static/images/senf.png" alt="">
+    <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 border-top bg-secondary-subtle">
+        <!-- License or Certification Image -->
+        <div class="col mb-3 text-center text-md-start">
+            <img src="https://snappfood.ir/static/images/senf.png" alt="Certification" class="img-fluid">
         </div>
+
+        <!-- First Column Links -->
         <div class="col mb-3">
-            <ul class="nav flex-column ">
-                <li class="nav-item mb-2"><a href="#" class="nav-link text-secondary">Lorem</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link text-secondary">Lorem</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link text-secondary">Lorem</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link text-secondary">Lorem</a></li>
+            <h5 class="text-secondary">Category 1</h5>
+            <ul class="nav flex-column">
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-secondary">Lorem 1</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-secondary">Lorem 2</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-secondary">Lorem 3</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-secondary">Lorem 4</a></li>
             </ul>
         </div>
+
+        <!-- Second Column Links -->
         <div class="col mb-3">
-            <ul class="nav flex-column ">
-                <li class="nav-item mb-2"><a href="#" class="nav-link text-secondary">Lorem</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link text-secondary">Lorem</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link text-secondary">Lorem</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link text-secondary">Lorem</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link text-secondary">Lorem</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link text-secondary">Lorem</a></li>
+            <h5 class="text-secondary">Category 2</h5>
+            <ul class="nav flex-column">
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-secondary">Lorem 1</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-secondary">Lorem 2</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-secondary">Lorem 3</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-secondary">Lorem 4</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-secondary">Lorem 5</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-secondary">Lorem 6</a></li>
             </ul>
         </div>
+
+        <!-- Brand Description and Social Media Links -->
         <div class="col mb-3">
-            <div class="">
-                <h5 class="tw-text-pink-600">EmadFood</h5>
-                <p class="tw-text-sm text-secondary">Food ordering experience, from fast food to snap food</p>
-                <div class="d-flex gap-3">
-                    <a href="#" class=""><i class="fa-brands fa-instagram tw-text-2xl tw-text-gray-500"></i></a>
-                    <a href="#" class=""><i class="fa-brands fa-linkedin tw-text-2xl tw-text-gray-500"></i></a>
-                    <a href="#" class=""><i class="fa-brands fa-telegram tw-text-2xl tw-text-gray-500"></i></a>
-                    <a href="#" class=""><i class="fa-brands fa-twitter tw-text-2xl tw-text-gray-500"></i></a>
-                </div>
+            <h5 class="tw-text-pink-600">EmadFood</h5>
+            <p class="text-secondary">Food ordering experience, from fast food to snap food.</p>
+            <div class="d-flex gap-3">
+                <a href="#" class="text-secondary"><i class="fa-brands fa-instagram fa-2xl"></i></a>
+                <a href="#" class="text-secondary"><i class="fa-brands fa-linkedin fa-2xl"></i></a>
+                <a href="#" class="text-secondary"><i class="fa-brands fa-telegram fa-2xl"></i></a>
+                <a href="#" class="text-secondary"><i class="fa-brands fa-twitter fa-2xl"></i></a>
             </div>
         </div>
-        <div class="col mb-3">
-            <a href="index.html"><img src="./images/SnappFood_logo.png" alt="" class="w-50"></a>
+
+        <!-- Logo Section -->
+        <div class="col mb-3 text-center text-md-end">
+            <a href="index.html">
+                <img src="{{asset('/images/snappFood_logo.png')}}" alt="SnappFood Logo" class="img-fluid w-50">
+            </a>
         </div>
     </footer>
 
-
-
-
-
-
-
-
-    <!-- Modal -->
-    <!-- <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Login or Register</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="">
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Phone Number</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                            <div id="emailHelp" class="form-text mb-3">Phone number starts with 09</div>
-                            <button type="submit" class="btn btn-primary">Continue</button>
-                          </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div> -->
 </x-home_layout>
