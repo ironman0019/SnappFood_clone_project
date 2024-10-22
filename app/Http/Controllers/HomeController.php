@@ -41,7 +41,7 @@ class HomeController extends Controller
         $foods = Food::where('food_party', 1)->get();
         $newResturents = Resturent::latest()->paginate(4);
         $orders = Order::where('user_id', $user->id)->latest()->get();
-        $allResturents = Resturent::all();
+        $resturentCities = Resturent::distinct()->get(['city']);
 
         return view('home', [
             'resturents' => $resturents,
@@ -49,7 +49,7 @@ class HomeController extends Controller
             'foods' => $foods,
             'newResturents' => $newResturents,
             'orders' => $orders,
-            'allResturents' => $allResturents,
+            'resturentCities' => $resturentCities,
         ]);
     }
 
