@@ -30,6 +30,14 @@
         .food-card {
             margin-bottom: 20px;
         }
+
+        /* Loading spinner */
+        .spinner-border {
+            display: none;
+            width: 3rem;
+            height: 3rem;
+            border-width: 5px;
+        }
     </style>
 </head>
 
@@ -92,6 +100,10 @@
             <div class="d-flex">
                 <a href="/home" class="btn btn-secondary mx-2">Back</a>
                 <button id="submit-order" class="btn btn-success btn-block">Submit Order</button>
+                <!-- Loading Spinner -->
+                <div class="spinner-border text-success ml-2" id="loading-spinner" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
             </div>
         </div>
     </div>
@@ -152,6 +164,13 @@
             }
 
 
+            // Show the loading spinner and disable the button
+            const spinner = document.getElementById('loading-spinner');
+            const submitButton = document.getElementById('submit-order');
+            spinner.style.display = 'inline-block';
+            submitButton.disabled = true;
+
+
             // Prepare the data to be sent to the server
             const orderData = {
                 order: order,
@@ -190,6 +209,11 @@
                 .catch(error => {
                     console.error('Error:', error);
                     alert('There was an error submitting your order. Please try again.');
+                })
+                .finally(() => {
+                    // Hide the loading spinner and re-enable the button
+                    spinner.style.display = 'none';
+                    submitButton.disabled = false;
                 });
         });
     </script>
