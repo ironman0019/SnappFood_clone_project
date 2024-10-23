@@ -54,7 +54,7 @@
                                 </form>
                             </div>
                         </td>
-                        <td class="fw-bold">{{$order->total_amount}} Toman</td>
+                        <td class="fw-bold">{{number_format($order->total_amount)}} Toman</td>
                     </tr>
                     @endforeach
                 </tbody>
