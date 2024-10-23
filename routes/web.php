@@ -17,10 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/admin', [AdminController::class, 'index'])->middleware('adminAuth');
 
 // Show admin login form
-Route::get('/admin/login', [AdminController::class, 'login'])->middleware('guest');
+Route::get('/admin/login', [AdminController::class, 'login'])->middleware('guard-guests');
 
 // authtenticate admin
-Route::post('/admin/auth', [AdminController::class, 'auth'])->middleware('guest');
+Route::post('/admin/auth', [AdminController::class, 'auth'])->middleware('guard-guests');
 
 // Log out admin
 Route::post('/admin/logout', [AdminController::class, 'logout'])->middleware('adminAuth');
@@ -61,14 +61,14 @@ Route::delete('/admin/comment_deleteing/{comment}', [AdminController::class, 'de
 
 // Sellers routes
 Route::prefix('seller')->group(function() {
-    Route::get('/register', [SellerController::class, 'create']);  // Show seller register form
-    Route::post('/store', [SellerController::class, 'store']);  // Create seller 
+    Route::get('/register', [SellerController::class, 'create'])->middleware('guard-guests'); // Show seller register form
+    Route::post('/store', [SellerController::class, 'store'])->middleware('guard-guests');  // Create seller 
     Route::get('/dashbord', [SellerHomeController::class, 'index'])->middleware('sellerAuth')->middleware('completeResturentInfo'); // Show seller dashbord page
     Route::get('/complete_res_info', [SellerController::class, 'createResturentInfo'])->middleware('sellerAuth'); // Show complete resturent info form
-    Route::put('/complete_res_info', [SellerController::class, 'storeResturentInfo']); // Store resturent info
-    Route::get('/login', [SellerController::class, 'login']); // Show seller login page
-    Route::post('/auth', [SellerController::class, 'auth']); // Login seller
-    Route::post('/logout', [SellerController::class, 'logout']); // Logout seller
+    Route::put('/complete_res_info', [SellerController::class, 'storeResturentInfo'])->middleware('sellerAuth'); // Store resturent info
+    Route::get('/login', [SellerController::class, 'login'])->middleware('guard-guests'); // Show seller login page
+    Route::post('/auth', [SellerController::class, 'auth'])->middleware('guard-guests'); // Login seller
+    Route::post('/logout', [SellerController::class, 'logout'])->middleware('sellerAuth'); // Logout seller
 });
 
 // Sellers dashbord
