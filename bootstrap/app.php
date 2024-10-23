@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\AdminAuth;
 use App\Http\Middleware\CompleteResturentInfo;
+use App\Http\Middleware\RedirectGuestsMiddleware;
 use App\Http\Middleware\SellerAuth;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -19,6 +20,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'adminAuth' => AdminAuth::class,
             'sellerAuth' => SellerAuth::class,
             'completeResturentInfo' => CompleteResturentInfo::class,
+            'guard-guests' => RedirectGuestsMiddleware::class
         ]);
         $middleware->redirectGuestsTo('login');
     })
