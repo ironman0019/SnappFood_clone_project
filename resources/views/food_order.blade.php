@@ -46,6 +46,8 @@
     <div class="container mt-5">
         <h1 class="text-center mb-4">Order Your Favorite Food</h1>
         <h3 class="text-center mb-2">From <span class="tw-text-pink-600">{{$resturent->name}}</span> Resturent!</h3>
+        <h6 class="">Resturent <span class="tw-text-pink-600">Address</span>: {{$resturent->address}}</h6>
+        <h6 class=""><span class="tw-text-pink-600">Work</span> hours: {{$resturent->work_hours}}</h6>
         <div class="row">
             @foreach($foods as $food)
             <div class="col-md-4">
@@ -73,6 +75,7 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Comment Id</th>
+                        <th scope="col">Username</th>
                         <th scope="col">Body</th>
                         <th scope="col">Reply</th>
                         <th scope="col">Created_at</th>
@@ -83,6 +86,7 @@
                     <tr>
                         <td>{{$loop->iteration}}</td>
                         <td>{{$comment->id}}</td>
+                        <td>{{$comment->user->name}}</td>
                         <td>{{$comment->body}}</td>
                         <td>{{$comment->reply}}</td>
                         <td>{{$comment->created_at}}</td>
@@ -91,6 +95,8 @@
                 </tbody>
             </table>
         </div>
+
+        <hr>
 
         <!-- Order Summary -->
         <div class="order-summary mt-4" id="order-summary">
