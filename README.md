@@ -2,6 +2,7 @@
 
 ## Description
 This project is an online food ordering website similar to persian snapp food site (https://snappfood.ir/). This project includes admin panel and seller panel (Restaurant owner's). The frontend of this project is written with bootstrap and taliwindcss together.
+This project includes api routes and functions and uses sanctum package for user authentication.
 
 ## Installation
 1. Clone the project
@@ -28,3 +29,7 @@ This project is an online food ordering website similar to persian snapp food si
 ![Alt text](/public/screenshots/4.jpg?raw=true "Optional Title") 
 ![Alt text](/public/screenshots/5.jpg?raw=true "Optional Title") 
 ![Alt text](/public/screenshots/6.jpg?raw=true "Optional Title") 
+
+## TODO
+1. Add documentation for api.
+2. Add receiveing link or info functions with email or text message.
