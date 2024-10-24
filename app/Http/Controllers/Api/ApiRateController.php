@@ -23,17 +23,19 @@ class ApiRateController extends Controller
     {
         $userId = auth()->user()->id;
         $resturent_id = $request->input('resturent_id');
+        $order_id = $request->input('order_id');
         $rate = $request->input('rate');
 
         // Create rate for resturent
         Rate::create([
             'user_id' => $userId,
             'resturent_id' => $resturent_id,
+            'order_id' => $order_id,
             'rate' => $rate
         ]);
 
         return response([
-            'message' => 'comment created!'
+            'message' => 'Rate created!'
         ],201);
     }
 
@@ -52,10 +54,12 @@ class ApiRateController extends Controller
     {
         $resturent_id = $request->input('resturent_id');
         $rate = $request->input('rate');
+        $order_id = $request->input('order_id');
 
         // Update rateing
         $Rate->update([
             'resturent_id' => $resturent_id,
+            'order_id' => $order_id,
             'rate' => $rate
         ]);
 
