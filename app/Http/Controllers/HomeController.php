@@ -21,10 +21,12 @@ class HomeController extends Controller
     {
         $categories = ResturentTag::all();
         $resturentCities = Resturent::distinct()->get(['city']);
+        $resturents = Resturent::orderBy('created_at', 'asc')->paginate(4);
 
         return view('index', [
             'categories' => $categories,
-            'resturentCities' => $resturentCities
+            'resturentCities' => $resturentCities,
+            'resturents' => $resturents
         ]);
     }
 
