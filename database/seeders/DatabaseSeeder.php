@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Admin;
+use App\Models\Food;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -25,5 +26,7 @@ class DatabaseSeeder extends Seeder
             'username' => 'admin',
             'password' => password_hash('admin1234', PASSWORD_DEFAULT),
         ]);
+
+        Food::factory(5)->create();
     }
 }
