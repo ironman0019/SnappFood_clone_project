@@ -242,19 +242,35 @@ class HomeController extends Controller
 
 
     // Rate the resturent
-    public function rateResturent(Request $request, $resturent_id)
+    public function rateResturent(Request $request, $resturent_id, $order_id)
     {
-        $formFields = $request->validate([
-            'rate' => 'required|numeric|digits_between:1,5'
-        ]);
+        $rate = Rate::where('order_id', $order_id)->first();
 
-        Rate::create([
-            'user_id' => auth()->user()->id,
-            'resturent_id' => $resturent_id,
-            'rate' => $formFields['rate']
-        ]);
+        if($rate) {
 
-        return back()->with('message', 'You have been rate this resturent successfully!');
+            $formFields = $request->validate([
+                'rate' => 'required|numeric|digits_between:1,5'
+            ]);
+
+            $rate->update($formFields);
+
+            return back()->with('message', 'Your rate updated!');
+
+        } else {
+            $formFields = $request->validate([
+                'rate' => 'required|numeric|digits_between:1,5'
+            ]);
+    
+            Rate::create([
+                'user_id' => auth()->user()->id,
+                'order_id' => intval($order_id),
+                'resturent_id' => $resturent_id,
+                'rate' => $formFields['rate'],
+            ]);
+    
+            return back()->with('message', 'You have been rate this resturent successfully!');
+        }
+
     }
 
 
