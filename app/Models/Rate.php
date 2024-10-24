@@ -10,7 +10,7 @@ class Rate extends Model
     use HasFactory;
 
     protected $table = 'rateings';
-    protected $fillable = ['user_id','resturent_id','rate'];
+    protected $fillable = ['user_id','resturent_id','order_id','rate'];
 
     // Relation with resturent
     public function resturent()
