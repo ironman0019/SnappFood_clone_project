@@ -115,7 +115,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/order_detaile/{id}', [HomeController::class, 'orderDetaile']); // Show order detaile
     Route::get('/reorder/{id}', [HomeController::class, 'reOrder']); // Reorder the order that user selected
     Route::post('/create_comment/{order_id}', [HomeController::class, 'createComment']); // Create comment
-    Route::post('/rate_resturent/{resturent_id}', [HomeController::class, 'rateResturent']); // Create rating for resturent
+    Route::post('/rate_resturent/{resturent_id}/{order_id}', [HomeController::class, 'rateResturent']); // Create rating for resturent
     Route::post('/search_resturents', [HomeController::class, 'searchResturent']); // Show resturent search page
 });
 
