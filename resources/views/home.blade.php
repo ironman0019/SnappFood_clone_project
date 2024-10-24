@@ -44,6 +44,7 @@
     <x-flash-message />
 
     <!-- first catagory cards -->
+    <h4 class="tw-text-gray-600 tw-m-5 ">Resturents in your city</h4>
     <section class="m-5">
         <div class="d-flex gap-3">
             @foreach($resturents as $resturent)
@@ -184,7 +185,7 @@
             @endforeach
 
         </div>
-        <div>
+        <div class="mt-3">
             {{$newResturents->links()}}
         </div>
     </section>
