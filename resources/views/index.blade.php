@@ -4,7 +4,7 @@
         <div class="container">
             <!-- flash message -->
             <x-flash-message />
-            
+
             <div class="row row-cols-1 row-cols-sm-2">
                 <div class="col">
                     <img src="https://snappfood.ir/static/images/hero-image.png" class="img-fluid w-30 d-sm-block d-none mb-3 rounded-4  " alt="This is a image">
@@ -35,12 +35,6 @@
     <!-- Catagory cards -->
     <h3 class="tw-text-gray-600 tw-m-5 ">Catagories</h3>
     <section class="mt-3 mx-3 d-flex flex-wrap shadow-lg bg-white">
-        <div class="card-img m-3 mb-4 col-12 col-md-6 col-lg-3" style="width: 12rem;">
-            <div class="position-relative hover:tw-animate-pulse tw-transition tw-ease-in-out tw-delay-150 hover:tw-translate-y-1 hover:tw-scale-110 tw-duration-300">
-                <a href="#" data-bs-toggle="tooltip" data-bs-title="Persian"><img src="https://cdn.snappfood.ir/uploads/images/tags/website_image_irani_1.jpg" class="rounded " alt="..."></a>
-                <a href="#" data-bs-toggle="tooltip" data-bs-title="Persian" class="btn position-absolute mx-4 px-2 top-100 start-0 translate-middle rounded-end-3 text-bg-light text-secondary-emphasis">Persian <i class="fa-solid fa-chevron-right tw-text-pink-600"></i></a>
-            </div>
-        </div>
         @foreach($categories as $category)
         <div class="card-img m-3 mb-4 col-12 col-md-6 col-lg-3" style="width: 12rem;">
             <div class="position-relative hover:tw-animate-pulse tw-transition tw-ease-in-out tw-delay-150 hover:tw-translate-y-1 hover:tw-scale-110 tw-duration-300">
@@ -51,6 +45,54 @@
         @endforeach
 
 
+    </section>
+
+    <!-- Resturents  -->
+    <section class="m-4">
+        <div class="tw-flex">
+            <h3 class="tw-text-gray-600 tw-m-5">Resturents In EmadFood</h3>
+            <a href="/home" class="tw-text-green-600 tw-font-semibold tw-text-2xl tw-no-underline tw-mt-5 tw-ml-auto">See All<i class="fa-solid fa-chevron-right tw-mx-3"></i></a>
+        </div>
+        <div class="d-flex gap-3">
+            @foreach($resturents as $resturent)
+            <a href="/food_order/{{$resturent->id}}" class="tw-no-underline">
+                <div class="card shadow hover:tw-animate-pulse" style="width: 18rem;">
+                    <img src="{{$resturent->photo ? asset('storage/' . $resturent->photo) : 'https://cdn.snappfood.ir/300x200/uploads/images/vendor-cover-app-review/4/05.jpg' }}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title text-center text-secondary-emphasis">{{$resturent->name}}</h5>
+                        <!-- score -->
+                        <p class="tw-text-center tw-text-xs tw-text-gray-500">
+                            @php
+                            $rates = $resturent->rateings;
+                            $sumRate = 0;
+                            $count = 0;
+
+                            foreach($rates as $rate) {
+                            $sumRate = $rate->rate + $sumRate;
+                            $count++;
+                            }
+                            if($sumRate == 0) {
+                            echo 'no reviews';
+                            } else {
+                            echo number_format($sumRate / $count, 2);
+                            }
+                            @endphp
+                            <i class="fa-solid fa-star tw-mx-1 tw-text-yellow-500"></i>
+                        </p>
+                        <!-- Tags -->
+                        <p class="tw-text-center tw-text-xs tw-text-gray-400">{{$resturent->tag}}</p>
+                        <!-- Delivary -->
+                        <p class="tw-text-center tw-text-xs tw-text-gray-500"><i class="fa-solid fa-motorcycle tw-mx-2"></i>Seller Delivary<span class="tw-font-bold tw-mx-1">{{$resturent->delivary_price ? number_format($resturent->delivary_price) : '0'}}</span>Toman</p>
+                        <p class="tw-text-center"><a href="/food_order/{{$resturent->id}}" class="btn btn-outline-secondary rounded-5">Place order</a></p>
+                    </div>
+                </div>
+            </a>
+            @endforeach
+
+        </div>
+        <div class="mt-3">
+            {{$resturents->links()}}
+        </div>
     </section>
 
     <!-- Show case -->
