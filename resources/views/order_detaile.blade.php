@@ -93,7 +93,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/rate_resturent/{{$order->resturent_id}}" method="POST" id="create-rate">
+                    <form action="/rate_resturent/{{$order->resturent_id}}/{{$order->id}}" method="POST" id="create-rate">
                         @csrf
                         <div class="mb-3">
                             <label for="" class="form-label">Rate</label>
