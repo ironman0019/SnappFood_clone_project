@@ -37,7 +37,7 @@
             @method('put')
             <div class="mb-3">
               <label for="" class="form-label">Resturent's Name</label>
-              <input type="text" class="form-control" id="" placeholder="" name="name">
+              <input type="text" class="form-control" id="" placeholder="" name="name" value="{{old('name')}}">
               @error('name')
               <div class="form-text text-danger">{{$message}}</div>
               @enderror
@@ -56,21 +56,21 @@
             </div>
             <div class="mb-3">
               <label for="" class="form-label">Telephone</label>
-              <input type="text" class="form-control" id="" name="phone">
+              <input type="text" class="form-control" id="" name="phone" value="{{old('phone')}}">
               @error('phone')
               <div class="form-text text-danger">{{$message}}</div>
               @enderror
             </div>
             <div class="mb-3">
               <label for="" class="form-label">Address</label>
-              <input type="text" class="form-control" id="" name="address">
+              <input type="text" class="form-control" id="" name="address" value="{{old('address')}}">
               @error('address')
               <div class="form-text text-danger">{{$message}}</div>
               @enderror
             </div>
             <div class="mb-3">
               <label for="" class="form-label">City</label>
-              <input type="text" class="form-control" id="" name="city">
+              <input type="text" class="form-control" id="" name="city" value="{{old('city')}}">
               @error('city')
               <div class="form-text text-danger">{{$message}}</div>
               @enderror
@@ -79,7 +79,7 @@
               <label for="" class="form-label">Bank info</label>
               <div class="input-group">
                 <span class="input-group-text" id="basic-addon1">IR-</span>
-                <input type="text" class="form-control" id="" name="bank">
+                <input type="text" class="form-control" id="" name="bank" value="{{old('bank')}}">
               </div>
               <div id="" class="form-text">Shaba number on your creadit card</div>
               @error('bank')
