@@ -26,7 +26,7 @@ class UserController extends Controller
         if (auth()->attempt($formFields)) {
 
             if (auth()->check()) {
-                return redirect('/home')->with('message', 'You are now logged in!');
+                return redirect()->intended('/home')->with('message', 'You are now logged in!');
             }
         }
 
