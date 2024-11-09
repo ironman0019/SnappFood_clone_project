@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CreateOrder;
+use App\Jobs\SendingEmailAppLink;
+use App\Mail\SendAppLinkMail;
 use App\Models\Comment;
 use App\Models\Food;
 use App\Models\Order;
@@ -11,6 +14,7 @@ use App\Models\Resturent;
 use App\Models\ResturentTag;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -101,6 +105,9 @@ class HomeController extends Controller
 
         // Find the order just created
         $order = Order::where('user_id', auth()->user()->id)->where('created_at', now())->first();
+
+        // Calling Create order event
+        event(new CreateOrder($order, auth()->user()->email));
 
         foreach ($orderData as $item) {
             // You can access $item['id'], $item['name'], $item['price'], and $item['quantity']
@@ -210,6 +217,9 @@ class HomeController extends Controller
         // Find the order just created
         $order = Order::where('user_id', auth()->user()->id)->where('created_at', now())->first();
 
+        // Calling Create order event
+        event(new CreateOrder($order, auth()->user()->email));
+
         // Create order_items
         foreach($foodItems as $foodItem) {
             OrderFoodItem::create([
@@ -282,6 +292,20 @@ class HomeController extends Controller
         ]);
         $resturents = Resturent::where('name', 'like', '%' . $search['search'] . '%')->get();
         return view('search_resturents', ['resturents' => $resturents]);
+    }
+
+    // Sending app link email showcase
+    public function sendMailAppLink(Request $request)
+    {
+        $formFields = $request->validate([
+            'email' => 'required|string|email'
+        ]);
+
+
+        // Sending email
+        SendingEmailAppLink::dispatch($formFields['email']);
+
+        return redirect('/home')->with('message', 'Check your email inbox!');
     }
 
 
