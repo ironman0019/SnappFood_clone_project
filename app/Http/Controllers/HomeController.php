@@ -305,7 +305,7 @@ class HomeController extends Controller
         // Sending email
         SendingEmailAppLink::dispatch($formFields['email']);
 
-        return redirect('/home')->with('message', 'Check your email inbox!');
+        return back()->with('message', 'Check your email inbox!');
     }
 
 
