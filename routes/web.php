@@ -117,6 +117,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/create_comment/{order_id}', [HomeController::class, 'createComment']); // Create comment
     Route::post('/rate_resturent/{resturent_id}/{order_id}', [HomeController::class, 'rateResturent']); // Create rating for resturent
     Route::post('/search_resturents', [HomeController::class, 'searchResturent']); // Show resturent search page
+    Route::post('/send_email_showcase', [HomeController::class, 'sendMailAppLink']); // Sending app link email
+
 });
 
 
