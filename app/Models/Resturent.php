@@ -9,7 +9,7 @@ class Resturent extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['seller_id', 'name', 'tag', 'phone', 'address', 'bank', 'photo', 'delivary_price', 'work_hours', 'status'];
+    protected $fillable = ['seller_id', 'name', 'tag', 'phone', 'address', 'bank', 'photo', 'delivary_price', 'work_hours', 'status', 'city'];
 
     // Relation with seller
     public function seller()
