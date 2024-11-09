@@ -98,6 +98,7 @@ Route::group(['middleware' => ['guest']], function() {
     Route::get('/register', [UserController::class, 'register']); // Show user register form
     Route::post('/login/auth', [UserController::class, 'auth']); // Login user
     Route::post('/register', [UserController::class, 'store']); // Register user in database
+    Route::post('/send_email_showcase', [HomeController::class, 'sendMailAppLink']); // Sending app link email
 });
 
 // Home protected routes
@@ -117,7 +118,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/create_comment/{order_id}', [HomeController::class, 'createComment']); // Create comment
     Route::post('/rate_resturent/{resturent_id}/{order_id}', [HomeController::class, 'rateResturent']); // Create rating for resturent
     Route::post('/search_resturents', [HomeController::class, 'searchResturent']); // Show resturent search page
-    Route::post('/send_email_showcase', [HomeController::class, 'sendMailAppLink']); // Sending app link email
 
 });
 
