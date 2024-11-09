@@ -11,6 +11,8 @@ use App\Models\OrderStatus;
 use App\Models\Resturent;
 use App\Models\ResturentTag;
 use App\Models\Seller;
+use App\Models\User;
+use App\Notifications\OrderStatusUpdate;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
@@ -48,6 +50,11 @@ class SellerHomeController extends Controller
 
         // Update order_status in order table
         $order->update($formFields);
+
+        // Notify user
+        $user = User::find($order->user_id);
+        $user->notify(new OrderStatusUpdate($order));
+        
 
         // Redirect user
         return back()->with('message', 'Order status updated!');
@@ -161,10 +168,10 @@ class SellerHomeController extends Controller
             'phone' => 'required',
             'address' => 'required',
             'delivary_price' => ['required', 'numeric'],
-            'work_hours' => 'required|not_in:0',
-            'work_hours2' => 'required|not_in:0',
             'photo' => 'mimes:jpg,jpeg,png',
-            'city' => 'required|string'
+            'city' => 'required|string',
+            'work_hours' => 'required|not_in:0',
+            'work_hours2' => 'required|not_in:0'
         ]);
 
         $formFields['work_hours'] = $formFields['work_hours']. '-'. $formFields['work_hours2'];
