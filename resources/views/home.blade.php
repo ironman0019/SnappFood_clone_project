@@ -190,7 +190,7 @@
         </div>
     </section>
 
-    <!-- Show case -->
+    <!-- Show case
     <section class="mt-5 m-4 bg-secondary-subtle d-flex tw-rounded-bl-3xl">
         <div class="d-flex flex-column flex-wrap">
             <h2 class="m-3 pt-4">Emad Food App</h2>
@@ -214,7 +214,7 @@
         <div class="">
             <img src="https://snappfood.ir/static/images/img_app_mockup@2x.png" class="w-75" alt="">
         </div>
-    </section>
+    </section> -->
 
     <section class="mt-5 m-4 bg-secondary-subtle d-flex tw-rounded-3xl">
         <div class="d-flex flex-column flex-wrap">
