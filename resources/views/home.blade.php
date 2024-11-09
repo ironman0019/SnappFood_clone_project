@@ -198,12 +198,16 @@
                 and supermarkets near you with a few simple clicks and enjoy the easy experience of ordering from Emadfood.
 
             </p>
-            <form action="#">
-                <p class="m-3 tw-font-bold">Enter your mobile number to get the link to download the application</p>
+            <form action="/send_email_showcase" method="POST">
+                @csrf
+                <p class="m-3 tw-font-bold">Enter your email address to get the link to download the application</p>
                 <div class="input-group mt-3 mx-3 w-50 ">
                     <button class="btn btn-outline-danger" type="submit">Receive Link</button>
-                    <input type="text" class="form-control" placeholder="09*********"
+                    <input type="text" class="form-control" placeholder="example@info.com" name="email"
                         aria-label="Example text with two button addons">
+                    @error('email')
+                    <div class="form-text text-danger">{{$message}}</div>
+                    @enderror
                 </div>
             </form>
         </div>
