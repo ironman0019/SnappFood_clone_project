@@ -16,14 +16,14 @@
                     @csrf
                     <div class="mb-3">
                         <label for="registerName" class="form-label">Full Name</label>
-                        <input type="text" name="name" class="form-control" id="registerName" placeholder="Enter your full name">
+                        <input type="text" name="name" class="form-control" id="registerName" placeholder="Enter your full name" value="{{ old('name') }}">
                         @error('name')
                         <div class="form-text text-danger">{{$message}}</div>
                         @enderror
                     </div>
                     <div class="mb-3">
                         <label for="registerEmail" class="form-label">Email address</label>
-                        <input type="text" name="email" class="form-control" id="registerEmail" placeholder="Enter your email">
+                        <input type="text" name="email" class="form-control" id="registerEmail" placeholder="Enter your email" value="{{ old('email') }}">
                         @error('email')
                         <div class="form-text text-danger">{{$message}}</div>
                         @enderror
