@@ -1,0 +1,92 @@
+services:
+
+  php:
+    build: 
+      context: .
+      target: php
+    environment:
+      - APP_ENV=${APP_ENV}
+      - CONTAINER_ROLE=app
+    container_name: laravel-app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    ports:
+      - 8000:8000
+    depends_on:
+      - database
+      - node
+    networks:
+      - laravel-app
+
+  database:
+    image: mysql:8.0
+    ports:
+      - 3307:3306
+    environment:
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+      - MYSQL_ROOT_PASSWORD=
+    container_name: mysql_database
+    restart: always
+    networks:
+      - laravel-app 
+    volumes: 
+      - laravel-app-mysql-data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin:5.2.1-apache
+    container_name: mysql_phpmyadmin
+    restart: unless-stopped
+    ports: 
+      - "8001:80"
+    environment:
+      PMA_HOST: database
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD:
+    depends_on:
+      - database
+    networks:
+      - laravel-app
+
+  queue:
+    build: 
+      context: .
+      target: php
+    environment:
+      - APP_ENV=${APP_ENV}
+      - CONTAINER_ROLE=queue
+    working_dir: /var/www
+    depends_on:
+      - database
+    volumes:
+      - ./:/var/www
+
+  node:
+    build: 
+      context: .
+      target: node
+    networks:
+      laravel-app:
+        aliases:
+          - vite
+    container_name: node_container
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/var/www
+      - ./node_modules:/usr/src/node_modules
+    tty: true
+
+
+
+volumes:
+  laravel-app-mysql-data:
+    driver: local
+
+networks:
+  laravel-app:
+    driver: bridge
