@@ -16,6 +16,7 @@ This project includes api routes and functions and uses sanctum package for user
 9. Start vite server - `npm run dev`
 10. Start Artisan server - `php artisan serve`
 11. Start Queue listener - `php artisan queue:listen`
+12. Link the storage in public folder for images - `php artisan storage:link`
 
 ## Useing Docker
 1. Config `.env` file.
