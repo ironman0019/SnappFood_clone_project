@@ -94,6 +94,12 @@ class HomeController extends Controller
             return response()->json(['success' => false, 'message' => 'Sorry! Resturent is closed!']);
         }
 
+        // Check is user address is not null
+        if(auth()->user()->address == null) {
+            return response()->json(['success' => false, 'message' => 'Please fill your address in user setting first!']);
+        }
+
+
         // Create order
         Order::create([
             'user_id' => auth()->user()->id,
