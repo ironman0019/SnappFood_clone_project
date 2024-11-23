@@ -31,7 +31,7 @@ class ResturentFactory extends Factory
             'city' => fake()->city(),
             'bank' => fake()->creditCardNumber(),
             'delivary_price' => fake()->randomDigit(),
-            'work_hours' => 12-23,
+            'work_hours' => "12-23",
             'status' => 'open'
         ];
     }
